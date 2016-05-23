@@ -1,3 +1,6 @@
-node_modules
-build
-stats.json
+client/node_modules
+client/build
+client/stats.json
+
+server/env
+server/*.pyc
