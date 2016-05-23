@@ -36,7 +36,7 @@ export default class Map extends React.Component {
         					key={i}
         					lat={parseFloat(d.lat)}
         					lng={parseFloat(d.lng)}
-        					text={d.prediction}/>
+        					prediction={d.prediction}/>
         			);
         		})}
 

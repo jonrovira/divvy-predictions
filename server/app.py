@@ -2,6 +2,7 @@ from flask import Flask
 from flask_restful import Resource, Api
 from flask.ext.restful.utils import cors
 import json
+import random
 from predictor import Predictor
 
 
@@ -29,7 +30,7 @@ class Predictions(Resource):
 				'id': station['id'],
 				'lat': station['lat'],
 				'lng': station['lng'],
-				'prediction': prediction.tolist()[0]
+				'prediction': 9*random.random() #prediction.tolist()[0]
 			})
 
 		return predictions
