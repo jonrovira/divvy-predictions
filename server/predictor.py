@@ -23,8 +23,6 @@ class Predictor:
 
 
 	def generate_dataset(self, n_train, n_test, n_features, noise=0.1):
-	    print n_train, n_test, n_features
-
 	    X, y, coef = make_regression(n_samples=n_train + n_test,
 	                                 n_features=n_features, noise=noise, coef=True)
 	    X_train = X[:n_train]
