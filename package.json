@@ -1,0 +1,39 @@
+{
+  "name": "divvy",
+  "version": "1.0.0",
+  "description": "An interface for generating Divvy bike demand predictions in Chicago based on previous years' Divvy data and weather data",
+  "main": "index.js",
+  "scripts": {
+    "stats": "webpack --profile --json > stats.json",
+    "build": "webpack --display-error-details",
+    "start": "webpack-dev-server"
+  },
+  "author": "Jon Rovira",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-core": "^6.9.0",
+    "babel-loader": "^6.2.4",
+    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-react": "^6.5.0",
+    "babel-preset-react-hmre": "^1.1.1",
+    "babel-preset-survivejs-kanban": "^0.3.3",
+    "clean-webpack-plugin": "^0.1.9",
+    "cross-spawn": "^3.0.1",
+    "css-loader": "^0.23.1",
+    "es6-promise": "^3.2.1",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "html-webpack-plugin": "^2.17.0",
+    "html-webpack-template": "^5.0.0",
+    "node-sass": "^3.7.0",
+    "npm-install-webpack-plugin": "^3.1.3",
+    "sass-loader": "^3.2.0",
+    "style-loader": "^0.13.1",
+    "webpack": "^1.13.0",
+    "webpack-dev-server": "^1.14.1",
+    "webpack-merge": "^0.12.0"
+  },
+  "dependencies": {
+    "react": "^15.0.2",
+    "react-dom": "^15.0.2"
+  }
+}
