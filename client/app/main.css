@@ -1,24 +1,121 @@
+/** Type **/
+@font-face {
+  font-family: Montserrat-Bold;
+  src: url("/font/montserrat/Montserrat-Bold.otf"); }
+/** Layout **/
+/** Layout **/
 html {
-	width: 100%;
-	height: 100%;
-}
+  width: 100%;
+  height: 100%; }
 
 body {
-	margin: 0;
-	width: 100%;
-	height: 100%;
-}
+  margin: 0;
+  width: 100%;
+  height: 100%; }
 
 div#app {
-	width: 100%;
-	height: 100%;
-}
+  width: 100%;
+  height: 100%; }
+
+div.layout {
+  width: 100%;
+  height: 100%;
+  overflow: auto; }
+
+/** Header **/
+section.header {
+  width: 100%;
+  height: 78px; }
+  section.header div.header-top {
+    padding: 5px 0;
+    width: 100%;
+    text-align: center;
+    background-color: #eee;
+    border-bottom: 1px solid #ccc; }
+    section.header div.header-top ul {
+      margin: 0;
+      padding: 0;
+      list-style: none; }
+      section.header div.header-top ul li {
+        display: inline-block;
+        text-transform: uppercase;
+        font-family: Montserrat-Bold, Arial, sans-serif;
+        font-size: 0.6em;
+        color: #333; }
+        section.header div.header-top ul li h6 {
+          margin: 0; }
+        section.header div.header-top ul li span {
+          margin-left: 3px;
+          font-size: 1.3em;
+          color: #04baf4; }
+      section.header div.header-top ul li:not(:last-child) {
+        margin-right: 15px; }
+  section.header div.header-bottom {
+    padding: 10px 20px;
+    width: calc(100% - 40px);
+    border-bottom: 1px solid #ccc; }
+    section.header div.header-bottom ul {
+      margin: 0;
+      padding: 0;
+      list-style: none; }
+      section.header div.header-bottom ul li {
+        display: inline-block;
+        text-transform: uppercase;
+        font-family: Montserrat-Bold, Arial, sans-serif;
+        font-size: 0.9em;
+        color: #222; }
+      section.header div.header-bottom ul li:not(:last-child) {
+        margin-right: 20px; }
+
+/** Map **/
+section.map {
+  float: left;
+  width: calc(100% - 250px);
+  height: calc(100% - 78px); }
 
 div.station-marker {
-	position: absolute;
-	width: 8px;
-	height: 8px;
-	color: #333;
-	font-size: 12px;
-	border-radius: 50%;
-}
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  font-size: 12px;
+  background-color: #aaa;
+  border-radius: 50%;
+  border: 1px solid #999;
+  cursor: pointer; }
+
+/** Panel **/
+section.panel {
+  float: left;
+  width: 200px;
+  height: calc(100% - 78px); }
+
+div.active-station {
+  height: 200px; }
+
+div.active-station h2 {
+  margin: 0;
+  padding: 15px 0; }
+
+div.active-station h4 {
+  margin: 0;
+  padding: 5px 0; }
+
+div.active-station span {
+  display: block; }
+
+ul.station-list {
+  margin: 0;
+  padding: 0;
+  height: calc(100% - 200px);
+  overflow-y: scroll;
+  list-style: none; }
+
+li.station-list-item {
+  padding: 5px 5px 5px 10px;
+  border-bottom: 1px solid #ddd;
+  cursor: pointer; }
+
+li.station-list-item span {
+  display: block; }
+
+/*# sourceMappingURL=main.css.map */

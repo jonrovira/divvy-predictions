@@ -3,6 +3,7 @@ from flask_restful import Resource, Api
 from flask.ext.restful.utils import cors
 import json
 import random
+import requests
 from predictor import Predictor
 
 
@@ -12,14 +13,14 @@ api = Api(app, decorators=[cors.crossdomain(origin="*")])
 
 
 
-p = Predictor()
+# p = Predictor()
 
 
 
 class Predictions(Resource):
 
 	def get(self):
-		prediction = p.predict()
+		# prediction = p.predict()
 
 		with open('stations.json') as data_file:
 			stations = json.load(data_file)
@@ -37,7 +38,15 @@ class Predictions(Resource):
 
 
 
-api.add_resource(Predictions, '/')
+class Forecast(Resource):
+
+	def get(self):
+		return json.loads(requests.get('https://api.forecast.io/forecast/53b2466f3793d7f9f048831394011b21/41.88917683,-87.63850577').content)
+
+
+
+api.add_resource(Predictions, '/predictions')
+api.add_resource(Forecast, '/forecast')
 
 
 

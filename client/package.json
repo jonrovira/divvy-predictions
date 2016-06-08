@@ -34,12 +34,18 @@
   },
   "dependencies": {
     "classnames": "^2.2.5",
+    "file-loader": "^0.8.5",
+    "font-awesome": "^4.6.3",
+    "font-awesome-webpack": "0.0.4",
     "google-map-react": "^0.12.1",
     "jquery": "^2.2.4",
+    "less": "^2.7.1",
+    "less-loader": "^2.2.3",
     "react": "^15.0.2",
     "react-dom": "^15.0.2",
     "react-google-maps": "^4.10.1",
     "react-icons": "^2.0.1",
-    "spawn-sync": "^1.0.15"
+    "spawn-sync": "^1.0.15",
+    "url-loader": "^0.5.7"
   }
 }

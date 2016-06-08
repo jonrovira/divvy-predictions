@@ -1,0 +1,35 @@
+/** Panel **/
+	section.panel {
+		float: left;
+		width: 200px;
+		height: calc(100% - #{$header-height});
+	}
+	div.active-station {
+		height: 200px;
+	}
+	div.active-station h2 {
+		margin: 0;
+		padding: 15px 0;
+	}
+	div.active-station h4 {
+		margin: 0;
+		padding: 5px 0;
+	}
+	div.active-station span {
+		display: block;
+	}
+	ul.station-list {
+		margin: 0;
+		padding: 0;
+		height: calc(100% - 200px);
+		overflow-y: scroll;
+		list-style: none;
+	}
+	li.station-list-item {
+		padding: 5px 5px 5px 10px;
+		border-bottom: 1px solid #ddd;
+		cursor: pointer;
+	}
+	li.station-list-item span {
+		display: block;
+	}

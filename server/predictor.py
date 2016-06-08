@@ -1,50 +1,53 @@
-import gc
-import numpy as np
-from sklearn.datasets.samples_generator import make_regression
-from sklearn.ensemble.forest import RandomForestRegressor
-
+import os
+import pandas as pd
+from sklearn.cross_validation import train_test_split
+from sklearn.ensemble import RandomForestRegressor
 
 
 class Predictor:
 
 	def __init__(self):
-		n_train = int(1e3)
-		n_test = int(1e2)
-		n_features = int(1e2)
-
-		self.x_train, self.y_train, self.x_test, self.y_test = self.generate_dataset(n_train, n_test, n_features)
-		self.forest = RandomForestRegressor().fit(self.x_train, self.y_train)
+		path_to_data = os.path.join(os.path.dirname(__file__), 'excerpt.csv')
+		data = self.get_data(path_to_data)
+		train_x, train_y, test_x, test_y = self.split_data(data)
+		self.forest = self.train_forest(train_x, train_y)
 
 
 
-	def predict(self):
-		return self.forest.predict(self.x_test[[0]])
+	def get_data(self, path):
+		data = pd.read_csv(path)
+		data.set_index(['index'], drop=True, inplace=True)
+		data.index = pd.to_datetime(data.index)
+		return data
 
 
 
-	def generate_dataset(self, n_train, n_test, n_features, noise=0.1):
-	    X, y, coef = make_regression(n_samples=n_train + n_test,
-	                                 n_features=n_features, noise=noise, coef=True)
-	    X_train = X[:n_train]
-	    y_train = y[:n_train]
-	    X_test = X[n_train:]
-	    y_test = y[n_train:]
-	    idx = np.arange(n_train)
-	    np.random.seed(13)
-	    np.random.shuffle(idx)
-	    X_train = X_train[idx]
-	    y_train = y_train[idx]
+	def split_data(self, data):
+		x = data.iloc[:, 1:]
+		y = data['trip_count']
+		return train_test_split(x, y, test_size=0.3, random_state=1)
 
-	    std = X_train.std(axis=0)
-	    mean = X_train.mean(axis=0)
-	    X_train = (X_train - mean) / std
-	    X_test = (X_test - mean) / std
 
-	    std = y_train.std(axis=0)
-	    mean = y_train.mean(axis=0)
-	    y_train = (y_train - mean) / std
-	    y_test = (y_test - mean) / std
 
-	    gc.collect()
+	def train_forest(self, x, y):
+		forest = RandomForestRegressor(n_estimators=500, 
+                                       criterion='mse',
+                                       max_depth=None,
+                                       min_samples_split=2,
+                                       min_samples_leaf=25,
+                                       max_features='auto',
+                                       max_leaf_nodes=None,
+                                       bootstrap=True,
+                                       oob_score=False,
+                                       n_jobs= -1,
+                                       random_state=None,
+                                       verbose=2)
+		forest.fit(x, y)
+		return forest
 
-	    return X_train, y_train, X_test, y_test
+
+
+	def predict(self, x):
+		return self.forest
+
+

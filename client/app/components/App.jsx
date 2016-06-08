@@ -1,6 +1,7 @@
 import React from 'react';
 import $ from 'jquery';
-import Map from './Map.jsx';
+import Layout from './Layout.jsx';
+import 'font-awesome-webpack';
 
 export default class App extends React.Component {
 
@@ -9,25 +10,51 @@ export default class App extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			data: []
-		}
+			data: [],
+			activeStationId: '',
+			temperature: '',
+			dewPoint: '',
+			humidity: '',
+			windSpeed: ''
+		};
+		this.setActiveStationId = this.setActiveStationId.bind(this);
 	}
 
 
 
 	componentDidMount() {
 		let _ = this;
-		$.get('http://127.0.0.1:5000/', function (result) {
+		$.get('http://127.0.0.1:5000/predictions', function (result) {
 			_.setState({ data: result });
-		})
+		});
+		$.get('http://127.0.0.1:5000/forecast', function (result) {
+			_.setState({
+				temperature: result["currently"].temperature,
+				dewPoint: result["currently"].dewPoint,
+				humidity: result["currently"].humidity,
+				windSpeed: result["currently"].windSpeed
+			});
+		});
+	}
+
+
+
+	setActiveStationId(id) {
+		this.setState({ activeStationId: id });
 	}
 
 
 
 
 	render() {
-		return <Map
-			data={this.state.data}/>;
+		return <Layout
+			data={this.state.data}
+			activeStationId={this.state.activeStationId}
+			setActiveStationId={this.setActiveStationId}
+			temperature={this.state.temperature}
+			dewPoint={this.state.dewPoint}
+			humidity={this.state.humidity}
+			windSpeed={this.state.windSpeed} />;
 	}
 
 
