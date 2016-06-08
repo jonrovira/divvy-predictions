@@ -2,7 +2,7 @@
 	section.panel {
 		float: left;
 		width: 200px;
-		height: calc(100% - #{$header-height});
+		height: calc(100% - #{$banner-height});
 	}
 	div.active-station {
 		height: 200px;

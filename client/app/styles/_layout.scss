@@ -2,18 +2,26 @@
 	html {
 		width: 100%;
 		height: 100%;
-	}
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-	div#render-target {
-		width: 100%;
-		height: 100%;
-	}
-	div.layout {
-		width: 100%;
-		height: 100%;
-		overflow: auto;
+
+		body {
+			margin: 0;
+			width: 100%;
+			height: 100%;
+
+			div#render-target {
+				width: 100%;
+				height: 100%;
+
+				main {
+					width: 100%;
+					height: 100%;
+
+					div.layout {
+						width: 100%;
+						height: calc(100% - #{$header-height});
+						overflow: auto;
+					}
+				}
+			}
+		}
 	}

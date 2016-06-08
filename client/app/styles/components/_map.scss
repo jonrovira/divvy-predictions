@@ -2,7 +2,7 @@
 	section.map {
 		float: left;
 		width: calc(100% - 250px);
-		height: calc(100% - #{$header-height});
+		height: calc(100% - #{$banner-height});
 	}
 	div.station-marker {
 		position: absolute;

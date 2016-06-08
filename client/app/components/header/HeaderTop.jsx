@@ -7,24 +7,13 @@ export default class HeaderTop extends React.Component {
 	render() {
 		return (
 			<div className="header-top">
-				<ul>
-					<li>
-						<span>{this.props.temperature}</span>
-						<h6>Temperature</h6>
-					</li>
-					<li>
-						<span>{this.props.dewPoint}</span>
-						<h6>Dew Point</h6>
-					</li>
-					<li>
-						<span>{this.props.humidity}</span>
-						<h6>Humidity</h6>
-					</li>
-					<li>
-						<span>{this.props.windSpeed}</span>
-						<h6>Wind Speed</h6>
-					</li>
-				</ul>
+				<nav>
+					<ul>
+						<li>Map</li>
+						<li>Model</li>
+						<li>Team</li>
+					</ul>
+				</nav>
 			</div>
 		);
 	}
@@ -32,15 +21,3 @@ export default class HeaderTop extends React.Component {
 
 
 };
-
-
-
-HeaderTop.PropTypes = {
-	temperature: React.PropTypes.number.isRequired,
-	dewPoint: React.PropTypes.number.isRequired,
-	humidity: React.PropTypes.number.isRequired,
-	windSpeed: React.PropTypes.number.isRequired
-};
-
-
-// you're about to add font awesome to the project

@@ -1,6 +1,6 @@
 import React from 'react';
-import Header from './header/Header.jsx';
-import Map from './map/Map.jsx';
+import Banner from './banner/Banner.jsx';
+import Map from './googleMap/Map.jsx';
 import Panel from './panel/Panel.jsx';
 
 export default class Layout extends React.Component {
@@ -10,7 +10,7 @@ export default class Layout extends React.Component {
 	render() {
 		return (
 			<div className="layout">
-				<Header
+				<Banner
 					temperature={this.props.temperature}
 					dewPoint={this.props.dewPoint}
 					humidity={this.props.humidity}
