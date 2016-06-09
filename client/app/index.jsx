@@ -1,6 +1,7 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { Router, Route, browserHistory, IndexRedirect } from 'react-router';
+import { createHistory } from 'history';
+import { Router, Route, IndexRedirect, useRouterHistory } from 'react-router';
 
 
 
@@ -14,6 +15,12 @@ import TeamPage from './components/team/Page.jsx';
 import './styles/normalize.scss';
 import 'font-awesome/scss/font-awesome.scss';
 import './styles/main.scss';
+
+
+
+const browserHistory = useRouterHistory(createHistory)({
+	basename: '/divvy-predictions'
+})
 
 
 
