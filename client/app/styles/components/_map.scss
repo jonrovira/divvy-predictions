@@ -13,4 +13,9 @@
 		border-radius: 50%;
 		border: 1px solid #999;
 		cursor: pointer;
+
+		&.active {
+			background-color: darken(#2FCAFC, 10%);
+			border-color: darken(#2FCAFC, 10%);
+		}
 	}

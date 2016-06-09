@@ -17,6 +17,7 @@ export default class Layout extends React.Component {
 					windSpeed={this.props.windSpeed} />
 				<Map
 					data={this.props.data}
+					activeStationId={this.props.activeStationId}
 					setActiveStationId={this.props.setActiveStationId} />
 				<Panel
 					data={this.props.data}

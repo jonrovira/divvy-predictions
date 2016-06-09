@@ -37,11 +37,14 @@ export default class Marker extends React.Component {
 			width: size,
 			height: size
 		};
-
+		const markerClass = classNames({
+			'station-marker': true,
+			'active': this.props.active
+		});
 		return (
 			<div
 				onClick={this.handleClick}
-				className="station-marker"
+				className={markerClass}
 				style={style}>
 				{this.props.text}
 			</div>
@@ -55,7 +58,10 @@ export default class Marker extends React.Component {
 
 
 Marker.PropTypes = {
-	id: React.PropTypes.string.isRequired,
+	active: React.PropTypes.bool.isRequired,
+	id: React.PropTypes.number.isRequired,
+	name: React.PropTypes.string.isRequired,
+	capacity: React.PropTypes.number.isRequired,
 	prediction: React.PropTypes.string.isRequired,
 	setActiveStationId: React.PropTypes.func.isRequired
 };

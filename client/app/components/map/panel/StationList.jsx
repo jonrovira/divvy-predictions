@@ -15,7 +15,10 @@ export default class StationList extends React.Component {
 							id={station.id}
 							lat={station.lat}
 							lng={station.lng}
+							name={station.name}
+							capacity={station.capacity}
 							prediction={station.prediction}
+							active={this.props.activeStationId == station.id}
 							setActiveStationId={this.props.setActiveStationId} />
 					)
 				})}
@@ -31,5 +34,6 @@ export default class StationList extends React.Component {
 
 StationList.PropTypes = {
 	stations: React.PropTypes.array.isRequired,
-	setActiveStationId: React.PropTypes.func.isRequired
+	setActiveStationId: React.PropTypes.func.isRequired,
+	activeStationId: React.PropTypes.string.isRequired
 };

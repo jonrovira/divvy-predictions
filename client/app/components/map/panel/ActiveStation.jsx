@@ -25,10 +25,17 @@ export default class ActiveStation extends React.Component {
 		const station = this.getActiveStation();
 		return (
 			<div className="active-station">
-				<h2>Station {station.id}</h2>
-				<h4>Prediction: {station.prediction}</h4>
-				<span>Latitude: {station.lat}</span>
-				<span>Longitude: {station.lng}</span>
+				{station
+					?
+						<div>
+							<h3>Bike capacity: {station.capacity}</h3>
+							<h2>{station.name}</h2>
+							<h4>We predict that {Number(station.prediction).toFixed(3)} bikes will be rented at this station in the next 3 hours.</h4>
+						</div>
+					:
+						''
+
+				}
 			</div>
 		);
 	}

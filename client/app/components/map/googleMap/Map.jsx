@@ -46,7 +46,10 @@ export default class Map extends React.Component {
 	        					key={i}
 	        					lat={parseFloat(d.lat)}
 	        					lng={parseFloat(d.lng)}
+	        					active={d.id == this.props.activeStationId}
 	        					id={d.id}
+	        					name={d.name}
+	        					capacity={d.capacity}
 	        					prediction={d.prediction}
 	        					setActiveStationId={this.props.setActiveStationId} />
 	        			);
@@ -65,5 +68,6 @@ export default class Map extends React.Component {
 
 Map.PropTypes = {
 	data: React.PropTypes.array.isRequired,
+	activeStationId: React.PropTypes.string.isRequired,
 	setActiveStationId: React.PropTypes.func.isRequried
 };

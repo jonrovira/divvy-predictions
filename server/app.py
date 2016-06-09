@@ -26,11 +26,13 @@ class Predictions(Resource):
 			stations = json.load(data_file)
 
 		predictions = []
-		for station in stations:
+		for i, station in enumerate(stations):
 			predictions.append({
-				'id': station['id'],
-				'lat': station['lat'],
-				'lng': station['lng'],
+				'id': i,
+				'name': station['name'],
+				'lat': station['latitude'],
+				'lng': station['longitude'],
+				'capacity': station['dpcapacity'],
 				'prediction': 9*random.random() #prediction.tolist()[0]
 			})
 

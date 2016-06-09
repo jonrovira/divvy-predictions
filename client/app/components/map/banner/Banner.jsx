@@ -7,6 +7,7 @@ export default class Banner extends React.Component {
 	render() {
 		return (
 			<section className="banner">
+				<h2>Current conditions:</h2>
 				<ul>
 					<li>
 						<span>{this.props.temperature} &deg;F</span>

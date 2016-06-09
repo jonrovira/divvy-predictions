@@ -14,7 +14,8 @@ export default class Panel extends React.Component {
 					activeStationId={this.props.activeStationId} />
 				<StationList
 					stations={this.props.data}
-					setActiveStationId={this.props.setActiveStationId} />
+					setActiveStationId={this.props.setActiveStationId}
+					activeStationId={this.props.activeStationId} />
 			</section>
 		);
 	}
