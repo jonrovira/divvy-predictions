@@ -27,7 +27,7 @@ const common = {
 	},
 	output: {
 		path: PATHS.build,
-		// publicPath: '/divvy-predictions/',
+		publicPath: '/divvy-predictions/',
 		filename: 'bundle.js'
 	},
 	module: {
