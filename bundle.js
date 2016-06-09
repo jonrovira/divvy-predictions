@@ -44799,7 +44799,7 @@
 /* 400 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
 		value: true
@@ -44830,12 +44830,38 @@
 		}
 
 		_createClass(TeamList, [{
-			key: 'render',
+			key: "render",
 			value: function render() {
 				return _react2.default.createElement(
-					'h1',
-					null,
-					'Hi'
+					"ul",
+					{ className: "team-list" },
+					_react2.default.createElement(
+						"li",
+						null,
+						_react2.default.createElement(
+							"h3",
+							null,
+							"Mark Giancreco"
+						)
+					),
+					_react2.default.createElement(
+						"li",
+						null,
+						_react2.default.createElement(
+							"h3",
+							null,
+							"Christopher Mark"
+						)
+					),
+					_react2.default.createElement(
+						"li",
+						null,
+						_react2.default.createElement(
+							"h3",
+							null,
+							"Jon Rovira"
+						)
+					)
 				);
 			}
 		}]);
