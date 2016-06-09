@@ -83,7 +83,7 @@
 		{ history: _reactRouter.browserHistory },
 		_react2.default.createElement(
 			_reactRouter.Route,
-			{ path: '/', component: _App2.default },
+			{ path: '/divvy-predictions/', component: _App2.default },
 			_react2.default.createElement(_reactRouter.IndexRedirect, { to: "/map" }),
 			_react2.default.createElement(_reactRouter.Route, { path: 'map', component: _Page2.default }),
 			_react2.default.createElement(_reactRouter.Route, { path: 'model', component: _Page4.default }),
