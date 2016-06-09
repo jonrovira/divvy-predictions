@@ -24,7 +24,7 @@ export default class Report extends React.Component {
 				<div className="report-section">
 					<h2>Data</h2>
 					<p>Divvy has published comprehensive trip and station data spanning about 2.5 years, from mid-2013 to the end of 2015. We binned this trip-by-trip data into four standard 3-hour time intervals and merged it with the station data and with weather readings from Weather Underground, as well as with calendar information such as the day of week and Federal holidays. We trained our model on a randomly selected subset of 70% of the data, tested on the remaining 30%, and verified our results using five-fold cross-validation.</p>
-					<p>Our final dataset consisted of 1,219,937 rows of Divvy station data joined by date with Weather Underground weather data. See our general report for sources to the dataset and merging scripts used.</p>
+					<p>Our final dataset consisted of 1,219,937 rows of Divvy station data joined by date with Weather Underground weather data. Follow the links to sources for our <a href='https://www.dropbox.com/s/6agikx0h8a65gpp/divvy_rentals.csv?dl=0' target="_blank">final dataset</a>, <a href='https://www.dropbox.com/s/1hm9rl2lpxv0opd/divvy_rentals_excerpt.csv?dl=0' target="_blank">dataset excerpt</a>, and scripts for <a href='https://github.com/mgiangreco/divvy' target="_blank">merging our weather and bike data</a>.</p>
 					<table>
 						<tbody>
 							<tr>
@@ -208,6 +208,7 @@ export default class Report extends React.Component {
 					<h2>Further Applications</h2>
 					<p>One key missing feature of this data is the number of bikes available for rental at a station at a given time. This cannot be calculated simply from the number of outgoing and incoming rentals, because Divvy has vans that transport bikes from station to station throughout the day. Divvy provides “available docks” information on its website for stations in real-time, but not for the historical data. With this additional field, it would be possible to determine when stations experienced stock outs in the past, and use that to estimate the actual demand for bikes.</p>
 					<p>Knowing the actual demand (or at least a good estimate of it) would allow Divvy to calculate its capacity shortfall and the corresponding amount of revenue it is foregoing at its current capacity due to stockouts. Divvy could then weigh that lost revenue against the cost of adding capacity (whether through new stations or through increased staffing) to determine the optimal service level across all stations (J.A. Van Mieghem and G. Allon, “Safety Capacity and Inventory”, Operations Strategy, Second Edition, 493-498).</p>
+					<p>Additional ways to further improve our model involves adding additional features, mainly features that keep track of major events occurring in the city (e.g., sporting events, festivals, concerts), CTA train arrivals, and rental patterns at a certain station from the previous day. </p>
 				</div>
 
 
