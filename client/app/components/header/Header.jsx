@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 
 export default class Header extends React.Component {
 
@@ -9,9 +10,15 @@ export default class Header extends React.Component {
 			<section className="header">
 				<nav>
 					<ul>
-						<li>Map</li>
-						<li>Model</li>
-						<li>Team</li>
+						<li>
+							<Link to="/map">Map</Link>
+						</li>
+						<li>
+							<Link to="/model">Model</Link>
+						</li>
+						<li>
+							<Link to="/team">Team</Link>
+						</li>
 					</ul>
 				</nav>
 			</section>

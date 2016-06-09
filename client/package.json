@@ -31,12 +31,14 @@
   },
   "dependencies": {
     "classnames": "^2.2.3",
+    "file-loader": "^0.8.5",
     "font-awesome": "^4.5.0",
     "google-map-react": "^0.13.0",
     "jquery": "^2.2.4",
     "react": "^15.1.0",
     "react-dom": "^15.1.0",
     "react-pure-render": "^1.0.2",
-    "react-router": "^2.4.1"
+    "react-router": "^2.4.1",
+    "url-loader": "^0.5.7"
   }
 }

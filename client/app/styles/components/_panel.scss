@@ -1,8 +1,9 @@
 /** Panel **/
 	section.panel {
 		float: left;
-		width: 200px;
+		width: calc(250px - 1px);
 		height: calc(100% - #{$banner-height});
+		border-left: 1px solid #ddd;
 	}
 	div.active-station {
 		height: 200px;

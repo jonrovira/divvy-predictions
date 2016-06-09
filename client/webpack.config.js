@@ -8,7 +8,8 @@ const TARGET = process.env.npm_lifecycle_event;
 const PATHS = {
 	app: path.join(__dirname, 'app'),
 	build: path.join(__dirname, 'build'),
-	fontAwesome: path.join(__dirname, 'node_modules/font-awesome')
+	fontAwesome: path.join(__dirname, 'node_modules/font-awesome'),
+	images: path.join(__dirname, 'app/img')
 };
 
 
@@ -50,6 +51,11 @@ const common = {
       			test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
       			loader: "file-loader",
       			include: PATHS.fontAwesome
+      		},
+      		{
+      			test: /\.(jpg|png)$/,
+      			loader: 'url?limit=25000',
+      			include: PATHS.images
       		}
 		]
 	}

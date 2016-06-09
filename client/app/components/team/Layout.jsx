@@ -1,5 +1,5 @@
 import React from 'react';
-import Report from './Report.jsx';
+import TeamList from './TeamList.jsx';
 
 export default class Layout extends React.Component {
 
@@ -8,7 +8,7 @@ export default class Layout extends React.Component {
 	render() {
 		return (
 			<div className="layout">
-				<Report />
+				<TeamList />
 			</div>
 		);
 	}
