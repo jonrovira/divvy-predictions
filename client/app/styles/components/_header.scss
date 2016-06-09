@@ -1,9 +1,9 @@
 /** Header **/
 	section.header {
 		width: 100%;
-		height: calc(#{$header-height} - 1px);
-		background-color: #f4f4f4;
-		border-bottom: 1px solid #ddd;
+		height: calc(#{$header-height});
+		background-color: #f3f3f3;
+		box-shadow: 0 0 5px rgba(57, 70, 78, .2);
 
 		nav {
 			padding: 5px 20px;
@@ -24,6 +24,7 @@
 					a {
 						text-decoration: none;
 						color: inherit;
+						outline: none;
 					}
 				}
 				li:not(:last-child) {

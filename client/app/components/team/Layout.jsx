@@ -7,7 +7,7 @@ export default class Layout extends React.Component {
 
 	render() {
 		return (
-			<div className="layout">
+			<div id="team" className="layout">
 				<TeamList />
 			</div>
 		);
