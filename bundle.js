@@ -36232,6 +36232,7 @@
 						windSpeed: this.props.windSpeed }),
 					_react2.default.createElement(_Map2.default, {
 						data: this.props.data,
+						activeStationId: this.props.activeStationId,
 						setActiveStationId: this.props.setActiveStationId }),
 					_react2.default.createElement(_Panel2.default, {
 						data: this.props.data,
@@ -36297,6 +36298,11 @@
 				return _react2.default.createElement(
 					"section",
 					{ className: "banner" },
+					_react2.default.createElement(
+						"h2",
+						null,
+						"Current conditions:"
+					),
 					_react2.default.createElement(
 						"ul",
 						null,
@@ -36453,7 +36459,10 @@
 								key: i,
 								lat: parseFloat(d.lat),
 								lng: parseFloat(d.lng),
+								active: d.id == _this2.props.activeStationId,
 								id: d.id,
+								name: d.name,
+								capacity: d.capacity,
 								prediction: d.prediction,
 								setActiveStationId: _this2.props.setActiveStationId });
 						})
@@ -36474,6 +36483,7 @@
 
 	Map.PropTypes = {
 		data: _react2.default.PropTypes.array.isRequired,
+		activeStationId: _react2.default.PropTypes.string.isRequired,
 		setActiveStationId: _react2.default.PropTypes.func.isRequried
 	};
 
@@ -43499,12 +43509,15 @@
 					width: size,
 					height: size
 				};
-
+				var markerClass = (0, _classnames2.default)({
+					'station-marker': true,
+					'active': this.props.active
+				});
 				return _react2.default.createElement(
 					'div',
 					{
 						onClick: this.handleClick,
-						className: 'station-marker',
+						className: markerClass,
 						style: style },
 					this.props.text
 				);
@@ -43518,7 +43531,10 @@
 
 
 	Marker.PropTypes = {
-		id: _react2.default.PropTypes.string.isRequired,
+		active: _react2.default.PropTypes.bool.isRequired,
+		id: _react2.default.PropTypes.number.isRequired,
+		name: _react2.default.PropTypes.string.isRequired,
+		capacity: _react2.default.PropTypes.number.isRequired,
 		prediction: _react2.default.PropTypes.string.isRequired,
 		setActiveStationId: _react2.default.PropTypes.func.isRequired
 	};
@@ -43630,7 +43646,8 @@
 						activeStationId: this.props.activeStationId }),
 					_react2.default.createElement(_StationList2.default, {
 						stations: this.props.data,
-						setActiveStationId: this.props.setActiveStationId })
+						setActiveStationId: this.props.setActiveStationId,
+						activeStationId: this.props.activeStationId })
 				);
 			}
 		}]);
@@ -43699,7 +43716,10 @@
 							id: station.id,
 							lat: station.lat,
 							lng: station.lng,
+							name: station.name,
+							capacity: station.capacity,
 							prediction: station.prediction,
+							active: _this2.props.activeStationId == station.id,
 							setActiveStationId: _this2.props.setActiveStationId });
 					})
 				);
@@ -43714,14 +43734,15 @@
 
 	StationList.PropTypes = {
 		stations: _react2.default.PropTypes.array.isRequired,
-		setActiveStationId: _react2.default.PropTypes.func.isRequired
+		setActiveStationId: _react2.default.PropTypes.func.isRequired,
+		activeStationId: _react2.default.PropTypes.string.isRequired
 	};
 
 /***/ },
 /* 389 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 		value: true
@@ -43733,6 +43754,10 @@
 	var _react = __webpack_require__(1);
 
 	var _react2 = _interopRequireDefault(_react);
+
+	var _classnames = __webpack_require__(386);
+
+	var _classnames2 = _interopRequireDefault(_classnames);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -43755,37 +43780,32 @@
 		}
 
 		_createClass(StationListItem, [{
-			key: "handleClick",
+			key: 'handleClick',
 			value: function handleClick(event) {
 				this.props.setActiveStationId(this.props.id);
 			}
 		}, {
-			key: "render",
+			key: 'render',
 			value: function render() {
+				var itemClass = (0, _classnames2.default)({
+					'station-list-item': true,
+					'active': this.props.active
+				});
 				return _react2.default.createElement(
-					"li",
+					'li',
 					{
-						className: "station-list-item",
+						className: itemClass,
 						onClick: this.handleClick },
 					_react2.default.createElement(
-						"span",
+						'h3',
 						null,
-						this.props.id
+						'Bike capacity: ',
+						this.props.capacity
 					),
 					_react2.default.createElement(
-						"span",
+						'h2',
 						null,
-						this.props.prediction
-					),
-					_react2.default.createElement(
-						"span",
-						null,
-						this.props.lat
-					),
-					_react2.default.createElement(
-						"span",
-						null,
-						this.props.lng
+						this.props.name
 					)
 				);
 			}
@@ -43801,6 +43821,9 @@
 		id: _react2.default.PropTypes.string.isRequired,
 		lat: _react2.default.PropTypes.string.isRequired,
 		lng: _react2.default.PropTypes.string.isRequired,
+		name: _react2.default.PropTypes.string.isRequired,
+		active: _react2.default.PropTypes.bool.isRequired,
+		capacity: _react2.default.PropTypes.number.isRequired,
 		prediction: _react2.default.PropTypes.number.isRequired,
 		setActiveStationId: _react2.default.PropTypes.func.isRequired
 	};
@@ -43809,7 +43832,7 @@
 /* 390 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 		value: true
@@ -43843,7 +43866,7 @@
 		}
 
 		_createClass(ActiveStation, [{
-			key: "getActiveStation",
+			key: 'getActiveStation',
 			value: function getActiveStation() {
 				for (var i = 0; i < this.props.stations.length; i++) {
 					if (this.props.stations[i].id === this.props.activeStationId) return this.props.stations[i];
@@ -43851,36 +43874,34 @@
 				return false;
 			}
 		}, {
-			key: "render",
+			key: 'render',
 			value: function render() {
 				var station = this.getActiveStation();
 				return _react2.default.createElement(
-					"div",
-					{ className: "active-station" },
-					_react2.default.createElement(
-						"h2",
+					'div',
+					{ className: 'active-station' },
+					station ? _react2.default.createElement(
+						'div',
 						null,
-						"Station ",
-						station.id
-					),
-					_react2.default.createElement(
-						"h4",
-						null,
-						"Prediction: ",
-						station.prediction
-					),
-					_react2.default.createElement(
-						"span",
-						null,
-						"Latitude: ",
-						station.lat
-					),
-					_react2.default.createElement(
-						"span",
-						null,
-						"Longitude: ",
-						station.lng
-					)
+						_react2.default.createElement(
+							'h3',
+							null,
+							'Bike capacity: ',
+							station.capacity
+						),
+						_react2.default.createElement(
+							'h2',
+							null,
+							station.name
+						),
+						_react2.default.createElement(
+							'h4',
+							null,
+							'We predict that ',
+							Number(station.prediction).toFixed(3),
+							' bikes will be rented at this station in the next 3 hours.'
+						)
+					) : ''
 				);
 			}
 		}]);
@@ -45395,7 +45416,7 @@
 
 
 	// module
-	exports.push([module.id, "/** Type **/\n/** Layout **/\n/** Layout **/\nhtml {\n  width: 100%;\n  height: 100%; }\n  html body {\n    margin: 0;\n    width: 100%;\n    height: 100%; }\n    html body div#render-target {\n      width: 100%;\n      height: 100%; }\n      html body div#render-target main {\n        width: 100%;\n        height: 100%; }\n        html body div#render-target main div.layout {\n          width: 100%;\n          height: calc(100% - 29px);\n          overflow: auto; }\n\n/** Header **/\nsection.header {\n  width: 100%;\n  height: calc(29px);\n  background-color: #f3f3f3;\n  box-shadow: 0 0 5px rgba(57, 70, 78, 0.2); }\n  section.header nav {\n    padding: 5px 20px;\n    width: calc(100% - 40px); }\n    section.header nav ul {\n      margin: 0;\n      padding: 0;\n      list-style: none; }\n      section.header nav ul li {\n        display: inline-block;\n        text-transform: uppercase;\n        font-family: Montserrat-Bold, Arial, sans-serif;\n        font-size: 0.9em;\n        color: #333; }\n        section.header nav ul li a {\n          text-decoration: none;\n          color: inherit;\n          outline: none; }\n      section.header nav ul li:not(:last-child) {\n        margin-right: 30px; }\n\n/** Banner **/\nsection.banner {\n  padding: 10px 20px;\n  width: calc(100% - 40px);\n  height: calc($banner-height - 20px);\n  text-align: center;\n  border-bottom: 1px solid #ddd; }\n  section.banner ul {\n    margin: 0;\n    padding: 0;\n    list-style: none; }\n    section.banner ul li {\n      display: inline-block;\n      font-family: Montserrat-Bold, Arial, sans-serif;\n      font-size: 0.6em;\n      color: #333; }\n      section.banner ul li span {\n        margin-left: 3px;\n        font-size: 1.3em;\n        color: #04baf4; }\n      section.banner ul li h6 {\n        margin: 0;\n        text-transform: lowercase; }\n    section.banner ul li:not(:last-child) {\n      margin-right: 30px; }\n\n/** Map **/\nsection.map {\n  float: left;\n  width: calc(100% - 250px);\n  height: calc(100% - 49px); }\n\ndiv.station-marker {\n  position: absolute;\n  width: 8px;\n  height: 8px;\n  font-size: 12px;\n  background-color: #aaa;\n  border-radius: 50%;\n  border: 1px solid #999;\n  cursor: pointer; }\n\n/** Panel **/\nsection.panel {\n  float: left;\n  width: calc(250px - 1px);\n  height: calc(100% - 49px);\n  border-left: 1px solid #ddd; }\n\ndiv.active-station {\n  height: 200px; }\n\ndiv.active-station h2 {\n  margin: 0;\n  padding: 15px 0; }\n\ndiv.active-station h4 {\n  margin: 0;\n  padding: 5px 0; }\n\ndiv.active-station span {\n  display: block; }\n\nul.station-list {\n  margin: 0;\n  padding: 0;\n  height: calc(100% - 200px);\n  overflow-y: scroll;\n  list-style: none; }\n\nli.station-list-item {\n  padding: 5px 5px 5px 10px;\n  border-bottom: 1px solid #ddd;\n  cursor: pointer; }\n\nli.station-list-item span {\n  display: block; }\n\nsection.report {\n  margin: 0 auto;\n  width: 80%;\n  font-family: Helvetica, sans-serif; }\n  section.report div.report-section h2 {\n    margin-bottom: 15px;\n    font-size: 2.2em;\n    color: #383838; }\n  section.report div.report-section p {\n    font-family: Helvetica;\n    margin: 20px 0;\n    font-size: 0.9em;\n    color: #494949;\n    line-height: 1.6em; }\n    section.report div.report-section p a {\n      color: #ed3c83; }\n  section.report div.report-section span.asterisk {\n    display: block;\n    margin-top: 15px;\n    font-size: 0.8em;\n    color: #555;\n    font-style: italic; }\n  section.report div.report-section div.tableau-injection div.tableauPlaceholder img {\n    border: none; }\n  section.report div.report-section div.tableau-injection div.tableauPlaceholder .tableauViz {\n    display: none;\n    width: 654px;\n    height: 742px; }\n  section.report hr {\n    margin-top: 20px;\n    border: 0;\n    height: 0;\n    border-top: 1px solid rgba(0, 0, 0, 0.1);\n    border-bottom: 1px solid rgba(255, 255, 255, 0.3); }\n\nimg.report-img {\n  width: 50%; }\n\ntable {\n  width: 50%;\n  background: white;\n  border-radius: 3px;\n  border-collapse: collapse;\n  padding: 5px;\n  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1); }\n  table th {\n    color: #D5DDE5;\n    background: #1b1e24;\n    border-bottom: 4px solid #9ea7af;\n    border-right: 1px solid #343a45;\n    font-size: 0.9em;\n    font-weight: 100;\n    padding: 10px;\n    text-align: left;\n    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);\n    vertical-align: middle; }\n    table th:first-child {\n      border-top-left-radius: 3px; }\n    table th:last-child {\n      border-top-right-radius: 3px;\n      border-right: none; }\n  table tr {\n    border-top: 1px solid #C1C3D1;\n    border-bottom: 1px solid #C1C3D1;\n    color: #666B85;\n    font-size: 0.9em;\n    font-weight: normal;\n    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.1); }\n    table tr:first-child {\n      border-top: none; }\n    table tr:last-child {\n      border-bottom: none; }\n      table tr:last-child td:first-child {\n        border-bottom-left-radius: 3px; }\n      table tr:last-child td:last-child {\n        border-bottom-right-radius: 3px; }\n    table tr:nth-child(odd) td {\n      background: #EBEBEB; }\n  table td {\n    background: #FFFFFF;\n    padding: 10px;\n    text-align: left;\n    vertical-align: middle;\n    font-weight: 300;\n    font-size: 0.9em;\n    text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);\n    border-right: 1px solid #C1C3D1; }\n    table td:last-child {\n      border-right: 0px; }\n\ndiv#team {\n  background-color: #f9f9f9; }\n  div#team section.team ul.team-list {\n    margin: 50px auto 0;\n    padding: 50px 40px 50px 25px;\n    width: calc(80% - 65px);\n    list-style: none;\n    background-color: #fff;\n    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24); }\n    div#team section.team ul.team-list li {\n      margin: 0 auto;\n      padding: 20px 10px 25px 20px;\n      width: calc(90% - 30px);\n      cursor: pointer; }\n      div#team section.team ul.team-list li:not(:last-child) {\n        margin-bottom: 40px;\n        border-bottom: 1px solid #eee; }\n      div#team section.team ul.team-list li h3 {\n        display: inline-block;\n        margin: 0 0 10px 0;\n        color: #444;\n        font-size: 1.3em;\n        font-weight: normal; }\n      div#team section.team ul.team-list li a {\n        display: inline-block;\n        margin-left: 6px;\n        text-decoration: none;\n        color: inherit;\n        outline: none; }\n        div#team section.team ul.team-list li a i {\n          font-size: 1.5em;\n          color: #04baf4; }\n      div#team section.team ul.team-list li p {\n        margin: 0;\n        font-size: 0.9em;\n        color: #888; }\n", ""]);
+	exports.push([module.id, "/** Type **/\n/** Layout **/\n/** Layout **/\nhtml {\n  width: 100%;\n  height: 100%; }\n  html body {\n    margin: 0;\n    width: 100%;\n    height: 100%; }\n    html body div#render-target {\n      width: 100%;\n      height: 100%; }\n      html body div#render-target main {\n        width: 100%;\n        height: 100%; }\n        html body div#render-target main div.layout {\n          width: 100%;\n          height: calc(100% - 29px);\n          overflow: auto; }\n\n/** Header **/\nsection.header {\n  width: 100%;\n  height: calc(29px);\n  background-color: #f3f3f3;\n  box-shadow: 0 0 5px rgba(57, 70, 78, 0.2); }\n  section.header nav {\n    padding: 5px 20px;\n    width: calc(100% - 40px);\n    text-align: center; }\n    section.header nav ul {\n      margin: 0;\n      padding: 0;\n      list-style: none; }\n      section.header nav ul li {\n        display: inline-block;\n        text-transform: uppercase;\n        font-family: Montserrat-Bold, Arial, sans-serif;\n        font-size: 0.9em;\n        color: #333; }\n        section.header nav ul li a {\n          text-decoration: none;\n          color: inherit;\n          outline: none; }\n      section.header nav ul li:not(:last-child) {\n        margin-right: 30px; }\n\n/** Banner **/\nsection.banner {\n  padding: 10px 20px;\n  width: calc(100% - 40px);\n  height: calc($banner-height - 20px);\n  border-bottom: 1px solid #ddd; }\n  section.banner h2 {\n    position: relative;\n    top: -2px;\n    margin: 0 20px 0 0;\n    padding: 0;\n    display: inline-block;\n    font-size: 1.1em;\n    text-transform: lowercase;\n    color: #adeafe; }\n  section.banner ul {\n    display: inline-block;\n    margin: 0;\n    padding: 0;\n    list-style: none; }\n    section.banner ul li {\n      display: inline-block;\n      font-family: Montserrat-Bold, Arial, sans-serif;\n      font-size: 0.6em;\n      color: #333; }\n      section.banner ul li span {\n        margin-left: 3px;\n        font-size: 1.3em;\n        color: #04baf4; }\n      section.banner ul li h6 {\n        margin: 0;\n        text-transform: lowercase; }\n    section.banner ul li:not(:last-child) {\n      margin-right: 30px; }\n\n/** Map **/\nsection.map {\n  float: left;\n  width: calc(100% - 250px);\n  height: calc(100% - 49px); }\n\ndiv.station-marker {\n  position: absolute;\n  width: 8px;\n  height: 8px;\n  font-size: 12px;\n  background-color: #aaa;\n  border-radius: 50%;\n  border: 1px solid #999;\n  cursor: pointer; }\n  div.station-marker.active {\n    background-color: #04baf4;\n    border-color: #04baf4; }\n\n/** Panel **/\nsection.panel {\n  float: left;\n  width: calc(250px - 1px);\n  height: calc(100% - 49px);\n  border-left: 1px solid #ddd; }\n  section.panel div.active-station {\n    padding: 10px 10px 10px 20px;\n    height: 140px;\n    border-bottom: 1px solid #eee; }\n    section.panel div.active-station h3 {\n      margin: 0;\n      padding: 0 0 6px 0;\n      font-size: 0.8em;\n      font-weight: normal;\n      color: #616566; }\n    section.panel div.active-station h2 {\n      margin: 0;\n      padding: 0;\n      font-size: 1em;\n      font-family: Montserrat-Bold, Arial, sans-serif;\n      color: #303133; }\n    section.panel div.active-station h4 {\n      margin: 0;\n      padding: 15px 0 0 0;\n      font-weight: normal;\n      font-size: 0.8em;\n      color: #616566; }\n  section.panel ul.station-list {\n    margin: 0;\n    padding: 0;\n    height: calc(100% - 160px);\n    overflow-y: scroll;\n    list-style: none;\n    background-color: #f0f0f0; }\n    section.panel ul.station-list li.station-list-item {\n      padding: 10px 5px 8px 10px;\n      border-bottom: 1px solid #ddd;\n      cursor: pointer; }\n      section.panel ul.station-list li.station-list-item.active {\n        background-color: #fff; }\n        section.panel ul.station-list li.station-list-item.active h2 {\n          color: #616566; }\n        section.panel ul.station-list li.station-list-item.active h3 {\n          color: #303133; }\n        section.panel ul.station-list li.station-list-item.active h4 {\n          color: #616566; }\n      section.panel ul.station-list li.station-list-item h3 {\n        margin: 0;\n        padding: 0 0 6px 0;\n        font-size: 0.8em;\n        font-weight: normal;\n        color: #aeb1b2; }\n      section.panel ul.station-list li.station-list-item h2 {\n        margin: 0;\n        padding: 0;\n        font-size: 0.9em;\n        font-family: Montserrat-Bold, Arial, sans-serif;\n        color: #7a7d82; }\n      section.panel ul.station-list li.station-list-item h4 {\n        margin: 0;\n        padding: 15px 0 0 0;\n        font-weight: normal;\n        font-size: 0.8em;\n        color: #aeb1b2; }\n\nsection.report {\n  margin: 0 auto;\n  width: 80%;\n  font-family: Helvetica, sans-serif; }\n  section.report div.report-section h2 {\n    margin-bottom: 15px;\n    font-size: 2.2em;\n    color: #383838; }\n  section.report div.report-section p {\n    font-family: Helvetica;\n    margin: 20px 0;\n    font-size: 0.9em;\n    color: #494949;\n    line-height: 1.6em; }\n    section.report div.report-section p a {\n      color: #ed3c83; }\n  section.report div.report-section span.asterisk {\n    display: block;\n    margin-top: 15px;\n    font-size: 0.8em;\n    color: #555;\n    font-style: italic; }\n  section.report div.report-section div.tableau-injection div.tableauPlaceholder img {\n    border: none; }\n  section.report div.report-section div.tableau-injection div.tableauPlaceholder .tableauViz {\n    display: none;\n    width: 654px;\n    height: 742px; }\n  section.report hr {\n    margin-top: 20px;\n    border: 0;\n    height: 0;\n    border-top: 1px solid rgba(0, 0, 0, 0.1);\n    border-bottom: 1px solid rgba(255, 255, 255, 0.3); }\n\nimg.report-img {\n  width: 50%; }\n\ntable {\n  width: 50%;\n  background: white;\n  border-radius: 3px;\n  border-collapse: collapse;\n  padding: 5px;\n  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1); }\n  table th {\n    color: #D5DDE5;\n    background: #1b1e24;\n    border-bottom: 4px solid #9ea7af;\n    border-right: 1px solid #343a45;\n    font-size: 0.9em;\n    font-weight: 100;\n    padding: 10px;\n    text-align: left;\n    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);\n    vertical-align: middle; }\n    table th:first-child {\n      border-top-left-radius: 3px; }\n    table th:last-child {\n      border-top-right-radius: 3px;\n      border-right: none; }\n  table tr {\n    border-top: 1px solid #C1C3D1;\n    border-bottom: 1px solid #C1C3D1;\n    color: #666B85;\n    font-size: 0.9em;\n    font-weight: normal;\n    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.1); }\n    table tr:first-child {\n      border-top: none; }\n    table tr:last-child {\n      border-bottom: none; }\n      table tr:last-child td:first-child {\n        border-bottom-left-radius: 3px; }\n      table tr:last-child td:last-child {\n        border-bottom-right-radius: 3px; }\n    table tr:nth-child(odd) td {\n      background: #EBEBEB; }\n  table td {\n    background: #FFFFFF;\n    padding: 10px;\n    text-align: left;\n    vertical-align: middle;\n    font-weight: 300;\n    font-size: 0.9em;\n    text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);\n    border-right: 1px solid #C1C3D1; }\n    table td:last-child {\n      border-right: 0px; }\n\ndiv#team {\n  background-color: #f9f9f9; }\n  div#team section.team ul.team-list {\n    margin: 50px auto 0;\n    padding: 50px 40px 50px 25px;\n    width: calc(80% - 65px);\n    list-style: none;\n    background-color: #fff;\n    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24); }\n    div#team section.team ul.team-list li {\n      margin: 0 auto;\n      padding: 20px 10px 25px 20px;\n      width: calc(90% - 30px);\n      cursor: pointer; }\n      div#team section.team ul.team-list li:not(:last-child) {\n        margin-bottom: 40px;\n        border-bottom: 1px solid #eee; }\n      div#team section.team ul.team-list li h3 {\n        display: inline-block;\n        margin: 0 0 10px 0;\n        color: #444;\n        font-size: 1.3em;\n        font-weight: normal; }\n      div#team section.team ul.team-list li a {\n        display: inline-block;\n        margin-left: 6px;\n        text-decoration: none;\n        color: inherit;\n        outline: none; }\n        div#team section.team ul.team-list li a i {\n          font-size: 1.5em;\n          color: #04baf4; }\n      div#team section.team ul.team-list li p {\n        margin: 0;\n        font-size: 0.9em;\n        color: #888; }\n", ""]);
 
 	// exports
 
