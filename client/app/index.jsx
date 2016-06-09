@@ -14,6 +14,7 @@ import TeamPage from './components/team/Page.jsx';
 
 import './styles/normalize.scss';
 import 'font-awesome/scss/font-awesome.scss';
+require('./font/montserrat/font.scss');
 import './styles/main.scss';
 
 

@@ -9,7 +9,8 @@ const PATHS = {
 	app: path.join(__dirname, 'app'),
 	build: path.join(__dirname, 'build'),
 	fontAwesome: path.join(__dirname, 'node_modules/font-awesome'),
-	images: path.join(__dirname, 'app/img')
+	images: path.join(__dirname, 'app/img'),
+	fonts: path.join(__dirname, 'app/font')
 };
 
 
@@ -33,9 +34,14 @@ const common = {
 	module: {
 		loaders: [
 			{
+			  test: /\.otf$/,
+			  loader: 'url',
+			  include: PATHS.fonts
+			},
+			{
 				test: /\.scss$/,
 				loaders: ['style', 'css', 'sass'],
-				include: [PATHS.app, PATHS.fontAwesome]
+				include: [PATHS.app, PATHS.fonts, PATHS.fontAwesome]
 			},
 			{
 				test: /\.jsx?$/,

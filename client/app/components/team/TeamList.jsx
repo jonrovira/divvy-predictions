@@ -26,8 +26,11 @@ export default class TeamList extends React.Component {
 							<i className="fa fa-linkedin-square"></i>
 						</a>
 						<p>
-							Chris is a junior studying Computer Science at Northwestern
-							University.
+							Chris is in the class of 2017, majoring in Computer Science
+							through the Weinberg College of Arts & Sciences, and minoring in
+							Cognitive Science. He is currently working for Northwestern Research
+							Computing, doing development for Quest -- Northwestern&#39;s
+							High Performance Computing Cluster.
 						</p>
 					</li>
 					<li className="team-list-item">
