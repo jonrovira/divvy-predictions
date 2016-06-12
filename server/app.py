@@ -22,7 +22,7 @@ class Predictions(Resource):
 	def get(self):
 		# prediction = p.predict()
 
-		with open('stations.json') as data_file:
+		with open('./data/stations.json') as data_file:
 			stations = json.load(data_file)
 
 		predictions = []

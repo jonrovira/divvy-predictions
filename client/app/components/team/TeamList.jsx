@@ -9,7 +9,7 @@ export default class TeamList extends React.Component {
 			<section className="team">
 				<ul className="team-list">
 					<li className="team-list-item">
-						<h3>Mark Giancreco</h3>
+						<h3>Mark Giangreco</h3>
 						<a href="https://www.linkedin.com/in/markgiangreco" target="_blank">
 							<i className="fa fa-linkedin-square"></i>
 						</a>

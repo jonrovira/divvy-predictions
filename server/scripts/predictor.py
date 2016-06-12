@@ -7,7 +7,7 @@ from sklearn.ensemble import RandomForestRegressor
 class Predictor:
 
 	def __init__(self):
-		path_to_data = os.path.join(os.path.dirname(__file__), 'excerpt.csv')
+		path_to_data = os.path.join(os.path.dirname(__file__), 'data', 'excerpt.csv')
 		data = self.get_data(path_to_data)
 		train_x, train_y, test_x, test_y = self.split_data(data)
 		self.forest = self.train_forest(train_x, train_y)
