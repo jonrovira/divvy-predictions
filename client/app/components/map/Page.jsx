@@ -23,17 +23,17 @@ export default class Page extends React.Component {
 
 	componentDidMount() {
 		let _ = this;
-		$.get('https://divvy-ml.herokuapp.com/predictions', function (result) {
-		// $.get('http://127.0.0.1:5000/predictions', function (result) {
-			_.setState({ data: result });
+		// $.get('https://divvy-ml.herokuapp.com/predictions', function (result) {
+		$.get('http://127.0.0.1:5000/divvyPredictions/api/v1.0/predictions', function (result) {
+			_.setState({ data: result.predictions });
 		});
-		$.get('https://divvy-ml.herokuapp.com/forecast', function (result) {
-		// $.get('http://127.0.0.1:5000/forecast', function (result) {
+		// $.get('https://divvy-ml.herokuapp.com/forecast', function (result) {
+		$.get('http://127.0.0.1:5000/divvyPredictions/api/v1.0/forecast', function (result) {
 			_.setState({
-				temperature: result["currently"].temperature,
-				dewPoint: result["currently"].dewPoint,
-				humidity: result["currently"].humidity,
-				windSpeed: result["currently"].windSpeed
+				temperature: result.forecast.currently.temperature,
+				dewPoint: result.forecast.currently.dewPoint,
+				humidity: result.forecast.currently.humidity,
+				windSpeed: result.forecast.currently.windSpeed
 			});
 		});
 	}

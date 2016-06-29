@@ -4,6 +4,7 @@ from flask import Flask, jsonify, abort, make_response
 from flask_restful import Api, Resource, reqparse, fields, marshal
 from flask_restful.utils import cors
 import requests
+import json
 from predictor import Predictor
 
 app = Flask(__name__, static_url_path="")
@@ -15,14 +16,13 @@ predictor = Predictor()
 class ForecastAPI(Resource):
 
 	def get(self):
-		return { 'forecast': requests.get('https://api.forecast.io/forecast/53b2466f3793d7f9f048831394011b21/41.88917683,-87.63850577').content }
+		return { 'forecast': json.loads(requests.get('https://api.forecast.io/forecast/53b2466f3793d7f9f048831394011b21/41.88917683,-87.63850577').content) }
 
 
 
 class PredictionsAPI(Resource):
 
 	def get(self):
-		print predictor.get_predictions()
 		return { 'predictions': predictor.get_predictions() }
 
 
