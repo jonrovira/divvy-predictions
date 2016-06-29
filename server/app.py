@@ -8,18 +8,8 @@ import json
 from predictor import Predictor
 
 app = Flask(__name__, static_url_path="")
-# api = Api(app, decorators=[cors.crossdomain(origin="*")])
-api = Api(app)
+api = Api(app, decorators=[cors.crossdomain(origin="*")])
 predictor = Predictor()
-
-
-
-@app.after_request
-def after_request(response):
-  	response.headers.add('Access-Control-Allow-Origin', 'https://jonrovira.github.io')
-  	response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
-  	response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE')
-  	return response
 
 
 
