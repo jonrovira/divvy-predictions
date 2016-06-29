@@ -1,54 +1,34 @@
-from flask import Flask
-from flask_restful import Resource, Api
-from flask.ext.restful.utils import cors
-import json
-import random
+#!venv/bin/python2.7
+
+from flask import Flask, jsonify, abort, make_response
+from flask_restful import Api, Resource, reqparse, fields, marshal
+from flask_restful.utils import cors
 import requests
 from predictor import Predictor
 
-
-
-app = Flask(__name__)
+app = Flask(__name__, static_url_path="")
 api = Api(app, decorators=[cors.crossdomain(origin="*")])
+predictor = Predictor()
 
 
 
-# p = Predictor()
-
-
-
-class Predictions(Resource):
+class ForecastAPI(Resource):
 
 	def get(self):
-		# prediction = p.predict()
-
-		with open('./data/stations.json') as data_file:
-			stations = json.load(data_file)
-
-		predictions = []
-		for i, station in enumerate(stations):
-			predictions.append({
-				'id': i,
-				'name': station['name'],
-				'lat': station['latitude'],
-				'lng': station['longitude'],
-				'capacity': station['dpcapacity'],
-				'prediction': 9*random.random() #prediction.tolist()[0]
-			})
-
-		return predictions
+		return { 'forecast': requests.get('https://api.forecast.io/forecast/53b2466f3793d7f9f048831394011b21/41.88917683,-87.63850577').content }
 
 
 
-class Forecast(Resource):
+class PredictionsAPI(Resource):
 
 	def get(self):
-		return json.loads(requests.get('https://api.forecast.io/forecast/53b2466f3793d7f9f048831394011b21/41.88917683,-87.63850577').content)
+		print predictor.get_predictions()
+		return { 'predictions': predictor.get_predictions() }
 
 
 
-api.add_resource(Predictions, '/predictions')
-api.add_resource(Forecast, '/forecast')
+api.add_resource(ForecastAPI, '/divvyPredictions/api/v1.0/forecast', endpoint='forecast')
+api.add_resource(PredictionsAPI, '/divvyPredictions/api/v1.0/predictions', endpoint='predictions')
 
 
 
