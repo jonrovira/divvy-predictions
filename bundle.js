@@ -26314,12 +26314,12 @@
 			key: 'componentDidMount',
 			value: function componentDidMount() {
 				var _ = this;
-				// $.get('https://divvy-ml.herokuapp.com/predictions', function (result) {
-				_jquery2.default.get('http://127.0.0.1:5000/divvyPredictions/api/v1.0/predictions', function (result) {
+				_jquery2.default.get('https://divvy-ml.herokuapp.com/divvyPredictions/api/v1.0/predictions', function (result) {
+					// $.get('http://127.0.0.1:5000/divvyPredictions/api/v1.0/predictions', function (result) {
 					_.setState({ data: result.predictions });
 				});
-				// $.get('https://divvy-ml.herokuapp.com/forecast', function (result) {
-				_jquery2.default.get('http://127.0.0.1:5000/divvyPredictions/api/v1.0/forecast', function (result) {
+				_jquery2.default.get('https://divvy-ml.herokuapp.com/divvyPredictions/api/v1.0/forecast', function (result) {
+					// $.get('http://127.0.0.1:5000/divvyPredictions/api/v1.0/forecast', function (result) {
 					_.setState({
 						temperature: result.forecast.currently.temperature,
 						dewPoint: result.forecast.currently.dewPoint,
