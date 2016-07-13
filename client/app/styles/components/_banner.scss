@@ -3,18 +3,9 @@
 		padding: 10px 20px;
 		width: calc(100% - 40px);
 		height: calc($banner-height - 20px);
+		text-align: center;
 		border-bottom: 1px solid #ddd;
 
-		h2 {
-			position: relative;
-			top: -2px;
-			margin: 0 20px 0 0;
-			padding: 0;
-			display: inline-block;
-			font-size: 1.1em;
-			text-transform: lowercase;
-			color: lighten(#2FCAFC, 25%);
-		}
 		ul {
 			display: inline-block;
 			margin: 0;
@@ -23,12 +14,12 @@
 
 			li {
 				display: inline-block;
+				text-align: center;
 				font-family: $font-family;
 				font-size: 0.6em;
 				color: #333;
 
 				span {
-					margin-left: 3px;
 					font-size: 1.3em;
 					color: darken(#2FCAFC, 10%);
 				}

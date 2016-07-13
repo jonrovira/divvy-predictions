@@ -4,11 +4,33 @@ export default class Banner extends React.Component {
 
 
 
+	constructor(props) {
+		super(props);
+
+		let d = new Date();
+		let localOff = -(d.getTimezoneOffset() / 60);
+		let targetOff = -5;
+		let deltaOff = targetOff - localOff;
+
+		this.state = {
+			date: new Date(new Date().getTime() + deltaOff * 3600 * 1000)
+		};
+	}
+
+
+
 	render() {
 		return (
 			<section className="banner">
-				<h2>Current conditions:</h2>
 				<ul>
+					<li>
+						<span>{this.state.date.toLocaleDateString()}</span>
+						<h6>Date</h6>
+					</li>
+					<li>
+						<span>{this.state.date.toLocaleTimeString()}</span>
+						<h6>Chicago Time</h6>
+					</li>
 					<li>
 						<span>{this.props.temperature} &deg;F</span>
 						<h6>Temperature</h6>

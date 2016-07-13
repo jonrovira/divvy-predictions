@@ -23,12 +23,12 @@ export default class Page extends React.Component {
 
 	componentDidMount() {
 		let _ = this;
-		$.get('https://divvy-ml.herokuapp.com/divvyPredictions/api/v1.0/predictions', function (result) {
-		// $.get('http://127.0.0.1:5000/divvyPredictions/api/v1.0/predictions', function (result) {
+		// $.get('https://divvy-ml.herokuapp.com/divvyPredictions/api/v1.0/predictions', function (result) {
+		$.get('http://127.0.0.1:5000/divvyPredictions/api/v1.0/predictions', function (result) {
 			_.setState({ data: result.predictions });
 		});
-		$.get('https://divvy-ml.herokuapp.com/divvyPredictions/api/v1.0/forecast', function (result) {
-		// $.get('http://127.0.0.1:5000/divvyPredictions/api/v1.0/forecast', function (result) {
+		// $.get('https://divvy-ml.herokuapp.com/divvyPredictions/api/v1.0/forecast', function (result) {
+		$.get('http://127.0.0.1:5000/divvyPredictions/api/v1.0/forecast', function (result) {
 			_.setState({
 				temperature: result.forecast.currently.temperature,
 				dewPoint: result.forecast.currently.dewPoint,
