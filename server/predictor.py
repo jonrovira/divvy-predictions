@@ -136,4 +136,10 @@ class Predictor:
 
 
 
+def run_predictor():
+	predictor = Predictor()
+	return predictor.get_predictions()
+
+
+
 

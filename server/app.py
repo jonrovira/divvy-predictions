@@ -5,11 +5,16 @@ from flask_restful import Api, Resource, reqparse, fields, marshal
 from flask_restful.utils import cors
 import requests
 import json
-from predictor import Predictor
+from rq import Queue
+from worker import conn
+from predictor import run_predictor
+
+
+q = Queue(connection=conn)
+predictions_job = q.enqueue(run_predictor)
 
 app = Flask(__name__, static_url_path="")
 api = Api(app, decorators=[cors.crossdomain(origin="*")])
-predictor = Predictor()
 
 
 
@@ -23,7 +28,7 @@ class ForecastAPI(Resource):
 class PredictionsAPI(Resource):
 
 	def get(self):
-		return { 'predictions': predictor.get_predictions() }
+		return { 'predictions': predictions_job.result }
 
 
 
