@@ -16,11 +16,17 @@ section.report {
 			font-size: 0.9em;
 			color: #494949;
 			line-height: 1.6em;
-
-			a {
+		}
+		ul {
+			margin: 15px 0;
+			font-family: Helvetica;
+			font-size: 0.9em;
+			color: #494949;
+			line-height: 1.6em;
+		}
+		a {
 				color: lighten(#e11567, 10%);
 			}
-		}
 		span.asterisk {
 			display: block;
 			margin-top: 15px;

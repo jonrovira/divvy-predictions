@@ -49,7 +49,6 @@ render((
 // 		- make this super simple
 //	• connect to Yelp API
 //		- most popular nearby spots?
-//	• show user's current location
 //	• deploy early and often
 // 	• bulleted text in conclusion styling
 //	• make sure experience is going to be good for users
