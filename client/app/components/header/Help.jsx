@@ -9,7 +9,8 @@ const Help = () => (
 			Our tool helps you visualize
 			how many bikes will probably be
 			available at each Divvy bike sharing
-			station in Chicago.
+			station in Chicago within a current
+			3-hour block.
 		</p>
 	</div>
 );

@@ -5,7 +5,11 @@ export default class CurrentTimeBlock extends React.Component {
 
 
 	getCurrentTimeBlock() {
-		let hourStart = new Date().getHours();
+		let localOffset = -(new Date().getTimezoneOffset() / 60);
+		let chicagoOffset = -5;
+		let difference = chicagoOffset - localOffset;
+
+		let hourStart = new Date(new Date().getTime() + difference * 3600 * 1000).getHours();
 		let hourEnd = (hourStart + 3) % 24;
 
 		let ampm = hourEnd >= 12 ? 'pm' : 'am';

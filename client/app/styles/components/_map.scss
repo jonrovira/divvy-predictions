@@ -19,3 +19,12 @@
 			z-index: 1000;
 		}
 	}
+	div.user-marker {
+		position: absolute;
+		width: 8px;
+		height: 8px;
+		font-size: 12px;
+		background-color: #EBCB40;
+		border-radius: 50%;
+		z-index: 1001;
+	}
