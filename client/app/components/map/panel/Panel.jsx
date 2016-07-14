@@ -1,6 +1,7 @@
 import React from 'react';
-import StationList from './StationList.jsx';
+import CurrentTimeBlock from './CurrentTimeBlock.jsx';
 import ActiveStation from './ActiveStation.jsx';
+import StationList from './StationList.jsx';
 
 export default class Panel extends React.Component {
 
@@ -9,6 +10,7 @@ export default class Panel extends React.Component {
 	render() {
 		return (
 			<section className="panel">
+				<CurrentTimeBlock />
 				<ActiveStation
 					predictions={this.props.predictions}
 					activeStationId={this.props.activeStationId} />

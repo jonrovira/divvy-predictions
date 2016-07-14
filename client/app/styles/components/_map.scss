@@ -14,7 +14,8 @@
 		cursor: pointer;
 
 		&.active {
-			background-color: darken(#2FCAFC, 10%);
-			border-color: darken(#2FCAFC, 10%);
+			background-color: #DA6348;
+			border-color: #DA6348;
+			z-index: 1000;
 		}
 	}

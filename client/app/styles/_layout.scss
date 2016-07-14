@@ -18,7 +18,7 @@
 
 					div.layout {
 						width: 100%;
-						height: calc(100% - #{$header-height} - 1px);
+						height: calc(100% - #{$header-height} - 10px - 1px);
 						overflow: auto;
 					}
 				}

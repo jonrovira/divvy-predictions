@@ -34,11 +34,11 @@ export default class Banner extends React.Component {
 						<h6>Dew Point</h6>
 					</li>
 					<li>
-						<span>{this.props.forecast.humidity}%</span>
+						<span>{parseFloat(this.props.forecast.humidity) * 100}%</span>
 						<h6>Humidity</h6>
 					</li>
 					<li>
-						<span>{this.props.forecast.windSpeed} mph</span>
+						<span>{this.props.forecast.windSpeed} MPH</span>
 						<h6>Wind Speed</h6>
 					</li>
 				</ul>

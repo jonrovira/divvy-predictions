@@ -21,16 +21,39 @@ export default class ActiveStation extends React.Component {
 
 
 
+	getFillWidth(station) {
+		let capacity = station.capacity;
+		let demand = station.prediction;
+		let left = capacity - demand;
+		left = left > 0 ? left : 0;
+		return 100 * (left / capacity);
+	}
+
+
+
+	getFraction(station) {
+		let capacity = station.capacity;
+		let demand = station.prediction;
+		let left = Math.floor(capacity - demand);
+		left = left > 0 ? left : 0;
+		return left + ' / ' + capacity;
+	}
+
+
+
 	render() {
 		let activeStation = this.getActiveStation();
+		let fillStyle = { width: this.getFillWidth(activeStation) + '%' };
 		
 		return (
 			<div className="active-station">
 				{activeStation ?
 						<div>
-							<h3>Bike capacity: {activeStation.capacity}</h3>
 							<h2>{activeStation.name}</h2>
-							<h4>We predict that {Number(activeStation.prediction).toFixed(3)} bikes will be rented at this station in the next 3 hours.</h4>
+							<span className="fraction"><i className="fa fa-bicycle"></i>{this.getFraction(activeStation)}</span>
+							<div className="fill-bar">
+								<div className="fill" style={fillStyle}></div>
+							</div>
 						</div>
 					:
 						''
