@@ -35,7 +35,7 @@
 		ul.station-list {
 			margin: 0;
 			padding: 0;
-			height: calc(100% - 160px);
+			height: calc(100% - 160px - 1px);
 			overflow-y: scroll;
 			list-style: none;
 			background-color: #f0f0f0;

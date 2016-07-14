@@ -11,16 +11,13 @@ export default class Layout extends React.Component {
 		return (
 			<div className="layout">
 				<Banner
-					temperature={this.props.temperature}
-					dewPoint={this.props.dewPoint}
-					humidity={this.props.humidity}
-					windSpeed={this.props.windSpeed} />
+					forecast={this.props.forecast} />
 				<Map
-					data={this.props.data}
+					predictions={this.props.predictions}
 					activeStationId={this.props.activeStationId}
 					setActiveStationId={this.props.setActiveStationId} />
 				<Panel
-					data={this.props.data}
+					predictions={this.props.predictions}
 					activeStationId={this.props.activeStationId}
 					setActiveStationId={this.props.setActiveStationId} />
 			</div>
@@ -34,11 +31,8 @@ export default class Layout extends React.Component {
 
 
 Layout.PropTypes = {
-	data: React.PropTypes.array.isRequired,
-	activeStationId: React.PropTypes.string.isRequired,
-	setActiveStationId: React.PropTypes.func.isRequired,
-	temperature: React.PropTypes.number.isRequired,
-	dewPoint: React.PropTypes.number.isRequired,
-	humidity: React.PropTypes.number.isRequired,
-	windSpeed: React.PropTypes.number.isRequired
+	predictions: React.PropTypes.array.isRequired,
+	forecast: React.PropTypes.object.isRequired,
+	activeStationId: React.PropTypes.number.isRequired,
+	setActiveStationId: React.PropTypes.func.isRequired
 };

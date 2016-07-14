@@ -26,21 +26,19 @@ export default class Marker extends React.Component {
 
 
 	handleClick(event) {
-		this.props.setActiveStationId(this.props.id);
+		this.props.setActiveStationId(parseInt(this.props.prediction.id));
 	}
 
 
 
 	render() {
-		const size = this.getSize(this.props.prediction);
-		const style = {
-			width: size,
-			height: size
-		};
-		const markerClass = classNames({
+		let size = this.getSize(this.props.prediction.prediction);
+		let style = { width: size, height: size };
+		let markerClass = classNames({
 			'station-marker': true,
-			'active': this.props.active
+			'active': this.props.isActive
 		});
+
 		return (
 			<div
 				onClick={this.handleClick}
@@ -58,10 +56,7 @@ export default class Marker extends React.Component {
 
 
 Marker.PropTypes = {
-	active: React.PropTypes.bool.isRequired,
-	id: React.PropTypes.number.isRequired,
-	name: React.PropTypes.string.isRequired,
-	capacity: React.PropTypes.number.isRequired,
-	prediction: React.PropTypes.string.isRequired,
+	prediction: React.PropTypes.object.isRequired,
+	isActive: React.PropTypes.bool.isRequired,
 	setActiveStationId: React.PropTypes.func.isRequired
 };

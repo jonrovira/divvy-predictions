@@ -13,22 +13,23 @@ export default class StationListItem extends React.Component {
 
 
 	handleClick(event) {
-		this.props.setActiveStationId(this.props.id);
+		this.props.setActiveStationId(parseInt(this.props.station.id));
 	}
 
 
 
 	render() {
-		const itemClass = classNames({
+		let itemClass = classNames({
 			'station-list-item': true,
-			'active': this.props.active
+			'active': this.props.isActive
 		});
+
 		return (
 			<li
 				className={itemClass}
 				onClick={this.handleClick} >
-				<h3>Bike capacity: {this.props.capacity}</h3>
-				<h2>{this.props.name}</h2>
+				<h3>Bike capacity: {this.props.station.capacity}</h3>
+				<h2>{this.props.station.name}</h2>
 			</li>
 		);
 	}
@@ -40,12 +41,7 @@ export default class StationListItem extends React.Component {
 
 
 StationListItem.PropTypes = {
-	id: React.PropTypes.string.isRequired,
-	lat: React.PropTypes.string.isRequired,
-	lng: React.PropTypes.string.isRequired,
-	name: React.PropTypes.string.isRequired,
-	active: React.PropTypes.bool.isRequired,
-	capacity: React.PropTypes.number.isRequired,
-	prediction: React.PropTypes.number.isRequired,
+	station: React.PropTypes.object.isRequired,
+	isActive: React.PropTypes.bool.isRequired,
 	setActiveStationId: React.PropTypes.func.isRequired
 };

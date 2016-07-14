@@ -2,8 +2,8 @@
 	section.header {
 		width: 100%;
 		height: calc(#{$header-height});
-		background-color: #f3f3f3;
-		box-shadow: 0 0 5px rgba(57, 70, 78, .2);
+		background-color: #fff;
+		border-bottom: 1px solid #eee;
 
 		nav {
 			padding: 5px 20px;
@@ -20,7 +20,7 @@
 					text-transform: uppercase;
 					font-family: $font-family;
 					font-size: 0.9em;
-					color: #333;
+					color: #858688;
 
 					a {
 						text-decoration: none;

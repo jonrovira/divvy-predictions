@@ -10,12 +10,12 @@ export default class Panel extends React.Component {
 		return (
 			<section className="panel">
 				<ActiveStation
-					stations={this.props.data}
+					predictions={this.props.predictions}
 					activeStationId={this.props.activeStationId} />
 				<StationList
-					stations={this.props.data}
-					setActiveStationId={this.props.setActiveStationId}
-					activeStationId={this.props.activeStationId} />
+					predictions={this.props.predictions}
+					activeStationId={this.props.activeStationId}
+					setActiveStationId={this.props.setActiveStationId} />
 			</section>
 		);
 	}
@@ -27,7 +27,7 @@ export default class Panel extends React.Component {
 
 
 Panel.PropTypes = {
-	data: React.PropTypes.array.isRequired,
-	activeStationId: React.PropTypes.string.isRequired,
+	predictions: React.PropTypes.array.isRequired,
+	activeStationId: React.PropTypes.number.isRequired,
 	setActiveStationId: React.PropTypes.func.isRequired
 };

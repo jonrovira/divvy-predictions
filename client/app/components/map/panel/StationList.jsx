@@ -8,17 +8,12 @@ export default class StationList extends React.Component {
 	render() {
 		return (
 			<ul className="station-list">
-				{this.props.stations.map((station, i) => {
+				{this.props.predictions.map((prediction, i) => {
 					return (
 						<StationListItem
 							key={i}
-							id={station.id}
-							lat={station.lat}
-							lng={station.lng}
-							name={station.name}
-							capacity={station.capacity}
-							prediction={station.prediction}
-							active={this.props.activeStationId == station.id}
+							station={prediction}
+							isActive={parseInt(prediction.id) === this.props.activeStationId}
 							setActiveStationId={this.props.setActiveStationId} />
 					)
 				})}
@@ -33,7 +28,7 @@ export default class StationList extends React.Component {
 
 
 StationList.PropTypes = {
-	stations: React.PropTypes.array.isRequired,
-	setActiveStationId: React.PropTypes.func.isRequired,
-	activeStationId: React.PropTypes.string.isRequired
+	predictions: React.PropTypes.array.isRequired,
+	activeStationId: React.PropTypes.number.isRequired,
+	setActiveStationId: React.PropTypes.func.isRequired
 };

@@ -7,15 +7,9 @@ export default class Map extends React.Component {
 
 
 
-	constructor(props) {
-		super(props);
-	}
-
-
-
 	static defaultProps = {
 		center: {lat: 41.8781, lng: -87.6298},
-	    zoom: 11,
+	    zoom: 11
 	}
 
 
@@ -26,7 +20,7 @@ export default class Map extends React.Component {
 
 	createMapOptions() {
 		return {
-			styles: [{"featureType":"landscape","stylers":[{"hue":"#FFBB00"},{"saturation":43.400000000000006},{"lightness":37.599999999999994},{"gamma":1}]},{"featureType":"road.highway","stylers":[{"hue":"#FFC200"},{"saturation":-61.8},{"lightness":45.599999999999994},{"gamma":1}]},{"featureType":"road.arterial","stylers":[{"hue":"#FF0300"},{"saturation":-100},{"lightness":51.19999999999999},{"gamma":1}]},{"featureType":"road.local","stylers":[{"hue":"#FF0300"},{"saturation":-100},{"lightness":52},{"gamma":1}]},{"featureType":"water","stylers":[{"hue":"#0078FF"},{"saturation":-13.200000000000003},{"lightness":2.4000000000000057},{"gamma":1}]},{"featureType":"poi","stylers":[{"hue":"#00FF6A"},{"saturation":-1.0989010989011234},{"lightness":11.200000000000017},{"gamma":1}]}]
+			styles: [{"featureType":"water","elementType":"all","stylers":[{"color":"#2696C3"}]},{"featureType":"road","elementType":"all","stylers":[{"color":"#75CBE5"}]},{"featureType":"landscape","elementType":"all","stylers":[{"color":"#6CC8E6"}]},{"featureType":"administrative","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"transit","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"poi","elementType":"all","stylers":[{"visibility":"off"}]}]
 		};
 	}
 
@@ -40,17 +34,14 @@ export default class Map extends React.Component {
 	        		defaultZoom={this.props.zoom}
 	        		options={this.createMapOptions}>
 
-	        		{this.props.data.map( (d, i) => {
+	        		{this.props.predictions.map((p, i) => {
 	        			return (
 	        				<Marker
 	        					key={i}
-	        					lat={parseFloat(d.lat)}
-	        					lng={parseFloat(d.lng)}
-	        					active={d.id == this.props.activeStationId}
-	        					id={d.id}
-	        					name={d.name}
-	        					capacity={d.capacity}
-	        					prediction={d.prediction}
+	        					lat={parseFloat(p.lat)}
+	        					lng={parseFloat(p.lng)}
+	        					prediction={p}
+	        					isActive={parseInt(p.id) == this.props.activeStationId}
 	        					setActiveStationId={this.props.setActiveStationId} />
 	        			);
 	        		})}
@@ -67,7 +58,7 @@ export default class Map extends React.Component {
 
 
 Map.PropTypes = {
-	data: React.PropTypes.array.isRequired,
-	activeStationId: React.PropTypes.string.isRequired,
+	predictions: React.PropTypes.array.isRequired,
+	activeStationId: React.PropTypes.number.isRequired,
 	setActiveStationId: React.PropTypes.func.isRequried
 };
