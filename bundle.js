@@ -26633,14 +26633,30 @@
 			key: 'componentDidMount',
 			value: function componentDidMount() {
 				var _ = this;
-				_jquery2.default.get('https://divvy-ml.herokuapp.com/divvyPredictions/api/v1.0/predictions', function (result) {
-					// $.get('http://127.0.0.1:5000/divvyPredictions/api/v1.0/predictions', function (result) {
-					_.setState({ predictions: result.predictions });
-				});
-				_jquery2.default.get('https://divvy-ml.herokuapp.com/divvyPredictions/api/v1.0/forecast', function (result) {
-					// $.get('http://127.0.0.1:5000/divvyPredictions/api/v1.0/forecast', function (result) {
-					_.setState({ forecast: result.forecast.currently });
-				});
+
+				var predictionRequestInterval = setInterval(function () {
+					_jquery2.default.get('https://divvy-ml.herokuapp.com/divvyPredictions/api/v1.0/predictions', function (result) {
+						// $.get('http://127.0.0.1:5000/divvyPredictions/api/v1.0/predictions', function (result) {
+						if (result.predictions !== null) {
+							clearInterval(predictionRequestInterval);
+							_.setState({ predictions: result.predictions });
+						} else {
+							console.log("haven't received predictions... polling.");
+						}
+					});
+				}, 1000);
+
+				var forecastRequestInterval = setInterval(function () {
+					_jquery2.default.get('https://divvy-ml.herokuapp.com/divvyPredictions/api/v1.0/forecast', function (result) {
+						// $.get('http://127.0.0.1:5000/divvyPredictions/api/v1.0/forecast', function (result) {
+						if (result.forecast !== null) {
+							clearInterval(forecastRequestInterval);
+							_.setState({ forecast: result.forecast.currently });
+						} else {
+							console.log("haven't received forecast... polling.");
+						}
+					});
+				}, 1000);
 			}
 		}, {
 			key: 'setActiveStationId',
