@@ -56,7 +56,10 @@ export default class ActiveStation extends React.Component {
 							</div>
 						</div>
 					:
-						''
+						<div className="no-active">
+							<i className="fa fa-child"></i>
+							<h2>Choose a station.</h2>
+						</div>
 
 				}
 			</div>

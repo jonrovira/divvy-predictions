@@ -17,7 +17,8 @@ export default class Panel extends React.Component {
 				<StationList
 					predictions={this.props.predictions}
 					activeStationId={this.props.activeStationId}
-					setActiveStationId={this.props.setActiveStationId} />
+					setActiveStationId={this.props.setActiveStationId}
+					bounds={this.props.bounds} />
 			</section>
 		);
 	}
@@ -31,5 +32,6 @@ export default class Panel extends React.Component {
 Panel.PropTypes = {
 	predictions: React.PropTypes.array.isRequired,
 	activeStationId: React.PropTypes.number.isRequired,
-	setActiveStationId: React.PropTypes.func.isRequired
+	setActiveStationId: React.PropTypes.func.isRequired,
+	bounds: React.PropTypes.object.isRequired,
 };

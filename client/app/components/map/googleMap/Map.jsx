@@ -20,7 +20,7 @@ export default class Map extends React.Component {
 			userLat: null,
 			userLng: null
 		};
-		this.getMarkers = this.getMarkers.bind(this);
+		this._getMarkers = this._getMarkers.bind(this);
 	}
 
 
@@ -54,7 +54,7 @@ export default class Map extends React.Component {
 
 
 
-	createMapOptions() {
+	_createMapOptions() {
 		return {
 			styles: [{"featureType":"water","elementType":"all","stylers":[{"color":"#2696C3"}]},{"featureType":"road","elementType":"all","stylers":[{"color":"#75CBE5"}]},{"featureType":"landscape","elementType":"all","stylers":[{"color":"#6CC8E6"}]},{"featureType":"administrative","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"transit","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"poi","elementType":"all","stylers":[{"visibility":"off"}]}]
 		};
@@ -62,8 +62,15 @@ export default class Map extends React.Component {
 
 
 
-	getMarkers() {
-		let markers = this.props.predictions.map((p, i) => {
+	_getMarkers() {
+		let markers = this.props.predictions.filter((p) => {
+			let lat = parseFloat(p.lat);
+			let lng = parseFloat(p.lng);
+			if (lat < this.props.bounds.nw.lat && lat > this.props.bounds.se.lat && lng < this.props.bounds.se.lng && lng > this.props.bounds.nw.lng) {
+				return true;
+			}
+			return false;
+		}).map((p, i) => {
 			return (
 				<Marker
 					key={i}
@@ -94,15 +101,27 @@ export default class Map extends React.Component {
 
 
 
+	_onChange = (center, zoom, bounds, marginBounds) => {
+		if (this.props.onChange) {
+			this.props.onChange({center, zoom, bounds, marginBounds});
+		} else {
+			this.props.onCenterChange(center);
+			this.props.onZoomChange(zoom);
+		}
+	}
+
+
+
 	render() {
 		return (
 			<section className="map">
 				<GoogleMap
 					defaultCenter={this.props.center}
 	        		defaultZoom={this.props.zoom}
-	        		options={this.createMapOptions}>
+	        		options={this._createMapOptions}
+	        		onChange={this._onChange}>
 
-	        		{this.getMarkers()}
+	        		{this._getMarkers()}
 
 				</GoogleMap>
 			</section>
@@ -118,5 +137,7 @@ export default class Map extends React.Component {
 Map.PropTypes = {
 	predictions: React.PropTypes.array.isRequired,
 	activeStationId: React.PropTypes.number.isRequired,
-	setActiveStationId: React.PropTypes.func.isRequried
+	setActiveStationId: React.PropTypes.func.isRequried,
+	bounds: React.PropTypes.object.isRequired,
+	onChange: React.PropTypes.func.isRequired
 };

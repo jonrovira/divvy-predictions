@@ -15,11 +15,14 @@ export default class Layout extends React.Component {
 				<Map
 					predictions={this.props.predictions}
 					activeStationId={this.props.activeStationId}
-					setActiveStationId={this.props.setActiveStationId} />
+					setActiveStationId={this.props.setActiveStationId}
+					bounds={this.props.bounds}
+					onChange={this.props.onChange}/>
 				<Panel
 					predictions={this.props.predictions}
 					activeStationId={this.props.activeStationId}
-					setActiveStationId={this.props.setActiveStationId} />
+					setActiveStationId={this.props.setActiveStationId}
+					bounds={this.props.bounds}/>
 			</div>
 		);
 	}
@@ -34,5 +37,7 @@ Layout.PropTypes = {
 	predictions: React.PropTypes.array.isRequired,
 	forecast: React.PropTypes.object.isRequired,
 	activeStationId: React.PropTypes.number.isRequired,
-	setActiveStationId: React.PropTypes.func.isRequired
+	setActiveStationId: React.PropTypes.func.isRequired,
+	bounds: React.PropTypes.object.isRequired,
+	onChange: React.PropTypes.func.isRequired
 };

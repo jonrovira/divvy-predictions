@@ -90,7 +90,6 @@ class Predictor:
 
 	def get_current_weather_time(self):
 		day_data = {}
-		# forecast = requests.get('https://api.forecast.io/forecast/53b2466f3793d7f9f048831394011b21/41.88917683,-87.63850577').content['currently']
 		forecast = json.loads(requests.get('https://api.forecast.io/forecast/53b2466f3793d7f9f048831394011b21/41.88917683,-87.63850577').content)['currently']
 		time = datetime.datetime.fromtimestamp(forecast['time'])
 		day_data['precipi']   = [forecast['precipIntensity']]

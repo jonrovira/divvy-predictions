@@ -49,11 +49,8 @@ render((
 // 		- make this super simple
 //	• connect to Yelp API
 //		- most popular nearby spots?
-//	• deploy early and often
-//	• make sure experience is going to be good for users
-//		- no errors (server side)
-//		- make sure workers save predictions
-//	• make a favicon
-//	• no selected active station
-
-
+// 	• add loader for polling
+//	• results change on bounds change
+// 	• change styling of current time block
+//	• remove icon from no active station
+//	• fix map colorings on zoom in

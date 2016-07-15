@@ -11,9 +11,20 @@ export default class Page extends React.Component {
 		this.state = {
 			predictions: [],
 			forecast: {},
-			activeStationId: -1
+			activeStationId: -1,
+			bounds: {
+				nw: {
+					lat: null,
+					lng: null
+				},
+				se: {
+					lat: null,
+					lng: null
+				}
+			}
 		};
-		this.setActiveStationId = this.setActiveStationId.bind(this);
+		this._setActiveStationId = this._setActiveStationId.bind(this);
+		this._onChange = this._onChange.bind(this);
 	}
 
 
@@ -48,19 +59,40 @@ export default class Page extends React.Component {
 
 
 
-	setActiveStationId(id) {
+	_setActiveStationId = (id) => {
 		this.setState({ activeStationId: id });
 	}
 
 
 
+	_onChange = (center, zoom, bounds, marginBounds) => {
+		if (center && center.center.bounds) {
+			this.setState({
+				bounds: {
+					nw: {
+						lat: center.center.bounds.nw.lat,
+						lng: center.center.bounds.nw.lng
+					},
+					se: {
+						lat: center.center.bounds.se.lat,
+						lng: center.center.bounds.se.lat,
+					}
+				}
+			});
+		}
+	}
 
-	render() {
+
+
+
+	render = () => {
 		return <Layout
 			predictions={this.state.predictions}
 			forecast={this.state.forecast}
 			activeStationId={this.state.activeStationId}
-			setActiveStationId={this.setActiveStationId} />;
+			setActiveStationId={this._setActiveStationId}
+			bounds={this.state.bounds}
+			onChange={this._onChange} />;
 	}
 
 
