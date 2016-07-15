@@ -100,6 +100,18 @@
 		)
 	), document.getElementById('render-target'));
 
+	// you're going to:
+	//
+	//	• build out a model that spits out different predictions for each station
+	// 		- make this super simple
+	//	• connect to Yelp API
+	//		- most popular nearby spots?
+	// 	• add loader for polling
+	//	• results change on bounds change
+	// 	• change styling of current time block
+	//	• remove icon from no active station
+	//	• fix map colorings on zoom in
+
 /***/ },
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
@@ -26607,12 +26619,54 @@
 
 			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Page).call(this, props));
 
+			_this._setActiveStationId = function (id) {
+				_this.setState({ activeStationId: id });
+			};
+
+			_this._onChange = function (center, zoom, bounds, marginBounds) {
+				if (center && center.center.bounds) {
+					_this.setState({
+						bounds: {
+							nw: {
+								lat: center.center.bounds.nw.lat,
+								lng: center.center.bounds.nw.lng
+							},
+							se: {
+								lat: center.center.bounds.se.lat,
+								lng: center.center.bounds.se.lat
+							}
+						}
+					});
+				}
+			};
+
+			_this.render = function () {
+				return _react2.default.createElement(_Layout2.default, {
+					predictions: _this.state.predictions,
+					forecast: _this.state.forecast,
+					activeStationId: _this.state.activeStationId,
+					setActiveStationId: _this._setActiveStationId,
+					bounds: _this.state.bounds,
+					onChange: _this._onChange });
+			};
+
 			_this.state = {
 				predictions: [],
 				forecast: {},
-				activeStationId: -1
+				activeStationId: -1,
+				bounds: {
+					nw: {
+						lat: null,
+						lng: null
+					},
+					se: {
+						lat: null,
+						lng: null
+					}
+				}
 			};
-			_this.setActiveStationId = _this.setActiveStationId.bind(_this);
+			_this._setActiveStationId = _this._setActiveStationId.bind(_this);
+			_this._onChange = _this._onChange.bind(_this);
 			return _this;
 		}
 
@@ -26644,20 +26698,6 @@
 						}
 					});
 				}, 1000);
-			}
-		}, {
-			key: 'setActiveStationId',
-			value: function setActiveStationId(id) {
-				this.setState({ activeStationId: id });
-			}
-		}, {
-			key: 'render',
-			value: function render() {
-				return _react2.default.createElement(_Layout2.default, {
-					predictions: this.state.predictions,
-					forecast: this.state.forecast,
-					activeStationId: this.state.activeStationId,
-					setActiveStationId: this.setActiveStationId });
 			}
 		}]);
 
@@ -36544,11 +36584,14 @@
 					_react2.default.createElement(_Map2.default, {
 						predictions: this.props.predictions,
 						activeStationId: this.props.activeStationId,
-						setActiveStationId: this.props.setActiveStationId }),
+						setActiveStationId: this.props.setActiveStationId,
+						bounds: this.props.bounds,
+						onChange: this.props.onChange }),
 					_react2.default.createElement(_Panel2.default, {
 						predictions: this.props.predictions,
 						activeStationId: this.props.activeStationId,
-						setActiveStationId: this.props.setActiveStationId })
+						setActiveStationId: this.props.setActiveStationId,
+						bounds: this.props.bounds })
 				);
 			}
 		}]);
@@ -36563,7 +36606,9 @@
 		predictions: _react2.default.PropTypes.array.isRequired,
 		forecast: _react2.default.PropTypes.object.isRequired,
 		activeStationId: _react2.default.PropTypes.number.isRequired,
-		setActiveStationId: _react2.default.PropTypes.func.isRequired
+		setActiveStationId: _react2.default.PropTypes.func.isRequired,
+		bounds: _react2.default.PropTypes.object.isRequired,
+		onChange: _react2.default.PropTypes.func.isRequired
 	};
 
 /***/ },
@@ -36767,11 +36812,20 @@
 
 			_this.shouldComponentUpdate = _function2.default;
 
+			_this._onChange = function (center, zoom, bounds, marginBounds) {
+				if (_this.props.onChange) {
+					_this.props.onChange({ center: center, zoom: zoom, bounds: bounds, marginBounds: marginBounds });
+				} else {
+					_this.props.onCenterChange(center);
+					_this.props.onZoomChange(zoom);
+				}
+			};
+
 			_this.state = {
 				userLat: null,
 				userLng: null
 			};
-			_this.getMarkers = _this.getMarkers.bind(_this);
+			_this._getMarkers = _this._getMarkers.bind(_this);
 			return _this;
 		}
 
@@ -36800,18 +36854,25 @@
 				navigator.geolocation.getCurrentPosition(success, error, options);
 			}
 		}, {
-			key: 'createMapOptions',
-			value: function createMapOptions() {
+			key: '_createMapOptions',
+			value: function _createMapOptions() {
 				return {
-					styles: [{ "featureType": "water", "elementType": "all", "stylers": [{ "color": "#2696C3" }] }, { "featureType": "road", "elementType": "all", "stylers": [{ "color": "#75CBE5" }] }, { "featureType": "landscape", "elementType": "all", "stylers": [{ "color": "#6CC8E6" }] }, { "featureType": "administrative", "elementType": "all", "stylers": [{ "visibility": "off" }] }, { "featureType": "transit", "elementType": "all", "stylers": [{ "visibility": "off" }] }, { "featureType": "poi", "elementType": "all", "stylers": [{ "visibility": "off" }] }]
+					styles: [{ "stylers": [{ "visibility": "off" }] }, { "featureType": "water", "elementType": "all", "stylers": [{ "visibility": "on" }] }, { "featureType": "water", "elementType": "all", "stylers": [{ "color": "#2696c3" }] }, { "featureType": "road", "elementType": "all", "stylers": [{ "visibility": "on" }] }, { "featureType": "road", "elementType": "all", "stylers": [{ "color": "#75CBE5" }] }, { "featureType": "landscape", "elementType": "all", "stylers": [{ "visibility": "on" }] }, { "featureType": "landscape", "elementType": "all", "stylers": [{ "color": "#6CC8E6" }] }]
 				};
 			}
 		}, {
-			key: 'getMarkers',
-			value: function getMarkers() {
+			key: '_getMarkers',
+			value: function _getMarkers() {
 				var _this2 = this;
 
-				var markers = this.props.predictions.map(function (p, i) {
+				var markers = this.props.predictions.filter(function (p) {
+					var lat = parseFloat(p.lat);
+					var lng = parseFloat(p.lng);
+					if (lat < _this2.props.bounds.nw.lat && lat > _this2.props.bounds.se.lat && lng < _this2.props.bounds.se.lng && lng > _this2.props.bounds.nw.lng) {
+						return true;
+					}
+					return false;
+				}).map(function (p, i) {
 					return _react2.default.createElement(_Marker2.default, {
 						key: i,
 						lat: parseFloat(p.lat),
@@ -36848,8 +36909,9 @@
 						{
 							defaultCenter: this.props.center,
 							defaultZoom: this.props.zoom,
-							options: this.createMapOptions },
-						this.getMarkers()
+							options: this._createMapOptions,
+							onChange: this._onChange },
+						this._getMarkers()
 					)
 				);
 			}
@@ -36868,7 +36930,9 @@
 	Map.PropTypes = {
 		predictions: _react2.default.PropTypes.array.isRequired,
 		activeStationId: _react2.default.PropTypes.number.isRequired,
-		setActiveStationId: _react2.default.PropTypes.func.isRequried
+		setActiveStationId: _react2.default.PropTypes.func.isRequried,
+		bounds: _react2.default.PropTypes.object.isRequired,
+		onChange: _react2.default.PropTypes.func.isRequired
 	};
 
 /***/ },
@@ -43986,7 +44050,8 @@
 					_react2.default.createElement(_StationList2.default, {
 						predictions: this.props.predictions,
 						activeStationId: this.props.activeStationId,
-						setActiveStationId: this.props.setActiveStationId })
+						setActiveStationId: this.props.setActiveStationId,
+						bounds: this.props.bounds })
 				);
 			}
 		}]);
@@ -44000,7 +44065,8 @@
 	Panel.PropTypes = {
 		predictions: _react2.default.PropTypes.array.isRequired,
 		activeStationId: _react2.default.PropTypes.number.isRequired,
-		setActiveStationId: _react2.default.PropTypes.func.isRequired
+		setActiveStationId: _react2.default.PropTypes.func.isRequired,
+		bounds: _react2.default.PropTypes.object.isRequired
 	};
 
 /***/ },
@@ -44229,27 +44295,41 @@
 	var StationList = function (_React$Component) {
 		_inherits(StationList, _React$Component);
 
-		function StationList() {
+		function StationList(props) {
 			_classCallCheck(this, StationList);
 
-			return _possibleConstructorReturn(this, Object.getPrototypeOf(StationList).apply(this, arguments));
+			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(StationList).call(this, props));
+
+			_this._getStations = function () {
+				var stations = _this.props.predictions.filter(function (p) {
+					var lat = parseFloat(p.lat);
+					var lng = parseFloat(p.lng);
+					if (lat < _this.props.bounds.nw.lat && lat > _this.props.bounds.se.lat && lng < _this.props.bounds.se.lng && lng > _this.props.bounds.nw.lng) {
+						return true;
+					}
+					return false;
+				}).map(function (p, i) {
+					return _react2.default.createElement(_StationListItem2.default, {
+						key: i,
+						station: p,
+						isActive: parseInt(p.id) === _this.props.activeStationId,
+						setActiveStationId: _this.props.setActiveStationId });
+				});
+
+				return stations;
+			};
+
+			_this._getStations = _this._getStations.bind(_this);
+			return _this;
 		}
 
 		_createClass(StationList, [{
 			key: 'render',
 			value: function render() {
-				var _this2 = this;
-
 				return _react2.default.createElement(
 					'ul',
 					{ className: 'station-list' },
-					this.props.predictions.map(function (prediction, i) {
-						return _react2.default.createElement(_StationListItem2.default, {
-							key: i,
-							station: prediction,
-							isActive: parseInt(prediction.id) === _this2.props.activeStationId,
-							setActiveStationId: _this2.props.setActiveStationId });
-					})
+					this._getStations()
 				);
 			}
 		}]);
@@ -44263,7 +44343,8 @@
 	StationList.PropTypes = {
 		predictions: _react2.default.PropTypes.array.isRequired,
 		activeStationId: _react2.default.PropTypes.number.isRequired,
-		setActiveStationId: _react2.default.PropTypes.func.isRequired
+		setActiveStationId: _react2.default.PropTypes.func.isRequired,
+		bounds: _react2.default.PropTypes.object.isRequired
 	};
 
 /***/ },
