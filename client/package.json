@@ -37,6 +37,7 @@
     "jquery": "^2.2.4",
     "react": "^15.1.0",
     "react-dom": "^15.1.0",
+    "react-favicon": "0.0.4",
     "react-pure-render": "^1.0.2",
     "react-router": "^2.4.1",
     "url-loader": "^0.5.7"

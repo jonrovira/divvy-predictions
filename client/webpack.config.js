@@ -59,10 +59,15 @@ const common = {
       			include: PATHS.fontAwesome
       		},
       		{
-      			test: /\.(jpg|png)$/,
+      			test: /\.(jpg|png|ico)$/,
       			loader: 'url?limit=25000',
       			include: PATHS.images
       		}
+      		// {
+      		// 	test: /\.(ico)$/,
+      		// 	loader: 'file-loader',
+      		// 	include: PATHS.images
+      		// }
 		]
 	}
 };

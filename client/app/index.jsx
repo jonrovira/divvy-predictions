@@ -50,10 +50,10 @@ render((
 //	• connect to Yelp API
 //		- most popular nearby spots?
 //	• deploy early and often
-// 	• bulleted text in conclusion styling
 //	• make sure experience is going to be good for users
 //		- no errors (server side)
 //		- make sure workers save predictions
 //	• make a favicon
+//	• no selected active station
 
 
