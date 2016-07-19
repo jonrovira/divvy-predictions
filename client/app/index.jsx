@@ -50,7 +50,11 @@ render((
 //	• connect to Yelp API
 //		- most popular nearby spots?
 // 	• add loader for polling
-//	• results change on bounds change
 // 	• change styling of current time block
 //	• remove icon from no active station
-//	• fix map colorings on zoom in
+// 	• add limit to number of digits in banner (repeating 9s)
+//	• add all data in banner, not just the stuff that's there
+//	• fix to the "chosen" 3-hr blocks
+// 	• add mouse-over stuff?
+
+

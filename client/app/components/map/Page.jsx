@@ -33,8 +33,8 @@ export default class Page extends React.Component {
 		let _ = this;
 
 		let predictionRequestInterval = setInterval(function () {
-			$.get('https://divvy-ml.herokuapp.com/divvyPredictions/api/v1.0/predictions', function (result) {
-			// $.get('http://127.0.0.1:5000/divvyPredictions/api/v1.0/predictions', function (result) {
+			// $.get('https://divvy-ml.herokuapp.com/divvyPredictions/api/v1.0/predictions', function (result) {
+			$.get('http://127.0.0.1:5000/divvyPredictions/api/v1.0/predictions', function (result) {
 				if (result.predictions !== null) {
 					clearInterval(predictionRequestInterval);
 					_.setState({ predictions: result.predictions });
@@ -45,8 +45,8 @@ export default class Page extends React.Component {
 		}, 1000);
 
 		let forecastRequestInterval = setInterval(function () {
-			$.get('https://divvy-ml.herokuapp.com/divvyPredictions/api/v1.0/forecast', function (result) {
-			// $.get('http://127.0.0.1:5000/divvyPredictions/api/v1.0/forecast', function (result) {
+			// $.get('https://divvy-ml.herokuapp.com/divvyPredictions/api/v1.0/forecast', function (result) {
+			$.get('http://127.0.0.1:5000/divvyPredictions/api/v1.0/forecast', function (result) {
 				if (result.forecast !== null) {
 					clearInterval(forecastRequestInterval);
 					_.setState({ forecast: result.forecast.currently });

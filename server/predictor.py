@@ -1,6 +1,7 @@
 #!venv/bin/python2.7
 
 import os
+import glob
 import copy
 import pandas as pd
 import json
@@ -22,8 +23,9 @@ class Predictor:
 
 		# read, organize ride data
 		print "    reading ride data..."
-		ride_path = os.path.join(os.path.dirname(__file__), 'data/master.csv')
-		rides = pd.read_csv(ride_path)
+		ride_path = os.path.join(os.path.dirname(__file__), 'data/glob')
+		files = glob.glob(os.path.join(ride_path, 'data_1.csv'))
+		rides = pd.concat(pd.read_csv(f) for f in files)
 		rides.set_index(['index'], drop=True, inplace=True)
 		rides.index = pd.to_datetime(rides.index)
 		x = rides.iloc[:, 1:]
