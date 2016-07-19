@@ -11,7 +11,7 @@ from predictor import run_predictor
 
 
 q = Queue(connection=conn)
-predictions_job = q.enqueue(run_predictor)
+predictions_job = q.enqueue_call(func=run_predictor, timeout=1800)
 
 app = Flask(__name__, static_url_path="")
 api = Api(app, decorators=[cors.crossdomain(origin="*")])
