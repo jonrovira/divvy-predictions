@@ -24,7 +24,7 @@ class Predictor:
 		# read, organize ride data
 		print "    reading ride data..."
 		ride_path = os.path.join(os.path.dirname(__file__), 'data/glob')
-		files = glob.glob(os.path.join(ride_path, 'data_1.csv'))
+		files = glob.glob(os.path.join(ride_path, '*.csv'))
 		rides = pd.concat(pd.read_csv(f) for f in files)
 		rides.set_index(['index'], drop=True, inplace=True)
 		rides.index = pd.to_datetime(rides.index)
