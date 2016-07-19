@@ -100,18 +100,6 @@
 		)
 	), document.getElementById('render-target'));
 
-	// you're going to:
-	//
-	//	• build out a model that spits out different predictions for each station
-	// 		- make this super simple
-	//	• connect to Yelp API
-	//		- most popular nearby spots?
-	// 	• add loader for polling
-	//	• results change on bounds change
-	// 	• change styling of current time block
-	//	• remove icon from no active station
-	//	• fix map colorings on zoom in
-
 /***/ },
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
@@ -26346,7 +26334,7 @@
 			_react2.default.createElement(
 				"p",
 				null,
-				"Our tool helps you visualize how many bikes will probably be available at each Divvy bike sharing station in Chicago within a current 3-hour block."
+				"Our tool predicts how many bikes will be rented from each Divvy bike sharing station in Chicago within the current 3-hour time block."
 			)
 		);
 	};
@@ -26692,6 +26680,7 @@
 						// $.get('http://127.0.0.1:5000/divvyPredictions/api/v1.0/forecast', function (result) {
 						if (result.forecast !== null) {
 							clearInterval(forecastRequestInterval);
+							console.log(result.forecast.currently);
 							_.setState({ forecast: result.forecast.currently });
 						} else {
 							console.log("haven't received forecast... polling.");
@@ -36696,7 +36685,7 @@
 							_react2.default.createElement(
 								"span",
 								null,
-								this.props.forecast.temperature,
+								parseFloat(this.props.forecast.temperature).toFixed(2),
 								" °F"
 							),
 							_react2.default.createElement(
@@ -36711,7 +36700,7 @@
 							_react2.default.createElement(
 								"span",
 								null,
-								this.props.forecast.dewPoint,
+								parseFloat(this.props.forecast.dewPoint).toFixed(2),
 								" °F"
 							),
 							_react2.default.createElement(
@@ -36726,7 +36715,7 @@
 							_react2.default.createElement(
 								"span",
 								null,
-								parseFloat(this.props.forecast.humidity) * 100,
+								(parseFloat(this.props.forecast.humidity) * 100).toFixed(2),
 								"%"
 							),
 							_react2.default.createElement(
@@ -36748,6 +36737,51 @@
 								"h6",
 								null,
 								"Wind Speed"
+							)
+						),
+						_react2.default.createElement(
+							"li",
+							null,
+							_react2.default.createElement(
+								"span",
+								null,
+								parseFloat(this.props.forecast.pressure).toFixed(2),
+								" MB"
+							),
+							_react2.default.createElement(
+								"h6",
+								null,
+								"Pressure"
+							)
+						),
+						_react2.default.createElement(
+							"li",
+							null,
+							_react2.default.createElement(
+								"span",
+								null,
+								parseFloat(this.props.forecast.precipIntensity).toFixed(2),
+								" IN/HR"
+							),
+							_react2.default.createElement(
+								"h6",
+								null,
+								"Precipitation"
+							)
+						),
+						_react2.default.createElement(
+							"li",
+							null,
+							_react2.default.createElement(
+								"span",
+								null,
+								parseFloat(this.props.forecast.visibility).toFixed(2),
+								" MI"
+							),
+							_react2.default.createElement(
+								"h6",
+								null,
+								"Visibility"
 							)
 						)
 					)
@@ -44241,11 +44275,10 @@
 					) : _react2.default.createElement(
 						'div',
 						{ className: 'no-active' },
-						_react2.default.createElement('i', { className: 'fa fa-child' }),
 						_react2.default.createElement(
 							'h2',
 							null,
-							'Choose a station.'
+							'Choose a station'
 						)
 					)
 				);
@@ -45958,7 +45991,7 @@
 
 
 	// module
-	exports.push([module.id, "/** Type **/\n/** Layout **/\n/** Layout **/\nhtml {\n  width: 100%;\n  height: 100%; }\n  html body {\n    margin: 0;\n    width: 100%;\n    height: 100%; }\n    html body div#render-target {\n      width: 100%;\n      height: 100%; }\n      html body div#render-target main {\n        width: 100%;\n        height: 100%; }\n        html body div#render-target main div.layout {\n          width: 100%;\n          height: calc(100% - 40px - 10px - 1px);\n          overflow: auto; }\n\n/** Header **/\nsection.header {\n  padding: 5px 20px;\n  width: calc(100% - 40px);\n  height: calc(40px);\n  background-color: #fff;\n  border-bottom: 1px solid #eee; }\n  section.header div.logo {\n    float: left;\n    width: calc(40px);\n    height: calc(40px); }\n    section.header div.logo img {\n      width: 100%; }\n  section.header nav {\n    float: left;\n    margin-left: 20px;\n    padding: 11px 0; }\n    section.header nav ul {\n      margin: 0;\n      padding: 0;\n      list-style: none; }\n      section.header nav ul li {\n        display: inline-block;\n        text-transform: uppercase;\n        font-family: Montserrat-Bold, Arial, sans-serif;\n        font-size: 0.9em;\n        color: #858688; }\n        section.header nav ul li a {\n          text-decoration: none;\n          color: inherit;\n          outline: none; }\n      section.header nav ul li:not(:last-child) {\n        margin-right: 30px; }\n  section.header div.help {\n    position: relative;\n    float: right;\n    padding: 6px 0;\n    cursor: pointer; }\n    section.header div.help i {\n      font-size: 1.5em;\n      color: #858688; }\n      section.header div.help i.active {\n        color: #c6c6c7; }\n    section.header div.help div.help-text {\n      position: absolute;\n      right: 6px;\n      top: 40px;\n      padding: 12px 10px 12px 15px;\n      width: 300px;\n      background-color: rgba(0, 0, 0, 0.7);\n      border: 1px solid #000;\n      z-index: 100000; }\n      section.header div.help div.help-text h4, section.header div.help div.help-text p {\n        -webkit-touch-callout: none;\n        -webkit-user-select: none;\n        -khtml-user-select: none;\n        -moz-user-select: none;\n        -ms-user-select: none;\n        user-select: none; }\n      section.header div.help div.help-text h4 {\n        margin: 0 0 6px 0;\n        font-weight: normal;\n        font-size: 0.9em;\n        color: #999; }\n      section.header div.help div.help-text p {\n        margin: 0;\n        padding: 0;\n        font-size: 0.9em;\n        color: #bbb;\n        line-height: 1.5em; }\n\n/** Banner **/\nsection.banner {\n  padding: 10px 20px;\n  width: calc(100% - 40px);\n  height: calc(48px - 20px);\n  text-align: center;\n  background-color: #F6F6F9; }\n  section.banner ul {\n    display: inline-block;\n    margin: 0;\n    padding: 0;\n    list-style: none; }\n    section.banner ul li {\n      display: inline-block;\n      text-align: center;\n      font-family: Montserrat-Bold, Arial, sans-serif;\n      font-size: 0.6em;\n      color: #333; }\n      section.banner ul li span {\n        font-size: 1.3em;\n        color: #04baf4; }\n      section.banner ul li h6 {\n        margin: 0;\n        font-size: 1.0em;\n        text-transform: lowercase; }\n    section.banner ul li:not(:last-child) {\n      margin-right: 30px; }\n\n/** Map **/\nsection.map {\n  float: left;\n  width: calc(100% - 250px);\n  height: calc(100% - 48px); }\n\ndiv.station-marker {\n  position: absolute;\n  width: 8px;\n  height: 8px;\n  font-size: 12px;\n  background-color: #fff;\n  border-radius: 50%;\n  cursor: pointer; }\n  div.station-marker.active {\n    background-color: #DA6348;\n    border-color: #DA6348;\n    z-index: 1000; }\n\ndiv.user-marker {\n  position: absolute;\n  width: 8px;\n  height: 8px;\n  font-size: 12px;\n  background-color: #EBCB40;\n  border-radius: 50%;\n  z-index: 1001; }\n\n/** Panel **/\nsection.panel {\n  float: left;\n  width: 250px;\n  height: calc(100% - 48px); }\n  section.panel div.current-time-block {\n    padding: 8px 5px;\n    height: 41px;\n    text-align: center;\n    color: #fff;\n    background-color: #19BCA3; }\n    section.panel div.current-time-block h4 {\n      margin: 0;\n      font-weight: normal;\n      font-size: 0.8em; }\n    section.panel div.current-time-block h5 {\n      margin: 5px 0 0 0;\n      font-family: Montserrat-Bold, Arial, sans-serif;\n      font-size: 1.1em;\n      word-spacing: 1px; }\n  section.panel div.active-station {\n    padding: 10px 10px 10px 20px;\n    height: 120px;\n    background-color: #fff;\n    border-bottom: 1px solid #eee; }\n    section.panel div.active-station h2 {\n      margin: 0;\n      font-size: 1.1em;\n      font-weight: normal;\n      color: #777; }\n    section.panel div.active-station span.fraction {\n      display: block;\n      margin-top: 6px;\n      font-size: 0.8em;\n      color: #aaa; }\n      section.panel div.active-station span.fraction i {\n        margin-right: 4px;\n        font-size: 1.1em; }\n    section.panel div.active-station div.fill-bar {\n      margin-top: 5px;\n      width: 100%;\n      height: 7px;\n      background-color: #eee;\n      background-color: #eee;\n      border-radius: 7px;\n      overflow: hidden; }\n      section.panel div.active-station div.fill-bar div.fill {\n        background-color: #19BCA3;\n        height: 100%; }\n    section.panel div.active-station div.no-active {\n      text-align: center; }\n      section.panel div.active-station div.no-active i {\n        margin: 20px 0 8px;\n        font-size: 3em;\n        color: #eee; }\n      section.panel div.active-station div.no-active h2 {\n        font-size: 0.9em;\n        color: #eee; }\n  section.panel ul.station-list {\n    margin: 0;\n    padding: 0;\n    height: calc(100% - 57px - 140px - 1px);\n    overflow-y: scroll;\n    list-style: none;\n    background-color: #fff; }\n    section.panel ul.station-list li.station-list-item {\n      padding: 10px 5px 8px 20px;\n      border-bottom: 1px solid #ddd;\n      cursor: pointer; }\n      section.panel ul.station-list li.station-list-item:hover:not(.active) {\n        padding: 10px 5px 8px 14px;\n        border-left: 6px solid #efbdb2; }\n      section.panel ul.station-list li.station-list-item.active {\n        padding: 1px 5px 8px 14px;\n        border-left: 6px solid #DA6348; }\n      section.panel ul.station-list li.station-list-item h4 {\n        margin: 0;\n        font-size: 0.9em;\n        font-weight: normal;\n        color: #999; }\n      section.panel ul.station-list li.station-list-item span.fraction {\n        display: block;\n        margin-top: 6px;\n        font-size: 0.7em;\n        color: #bbb; }\n        section.panel ul.station-list li.station-list-item span.fraction i {\n          margin-right: 3px;\n          font-size: 1.1em; }\n      section.panel ul.station-list li.station-list-item div.fill-bar {\n        margin-top: 4px;\n        width: 100%;\n        height: 6px;\n        background-color: #eee;\n        border-radius: 6px;\n        overflow: hidden; }\n        section.panel ul.station-list li.station-list-item div.fill-bar div.fill {\n          background-color: #19BCA3;\n          height: 100%; }\n\nsection.report {\n  margin: 0 auto;\n  width: 80%;\n  font-family: Helvetica, sans-serif; }\n  section.report div.report-section h2 {\n    margin-bottom: 15px;\n    font-size: 2.2em;\n    color: #383838; }\n  section.report div.report-section p {\n    font-family: Helvetica;\n    margin: 20px 0;\n    font-size: 0.9em;\n    color: #494949;\n    line-height: 1.6em; }\n  section.report div.report-section ul {\n    margin: 15px 0;\n    font-family: Helvetica;\n    font-size: 0.9em;\n    color: #494949;\n    line-height: 1.6em; }\n  section.report div.report-section a {\n    color: #ed3c83; }\n  section.report div.report-section span.asterisk {\n    display: block;\n    margin-top: 15px;\n    font-size: 0.8em;\n    color: #555;\n    font-style: italic; }\n  section.report div.report-section div.tableau-injection div.tableauPlaceholder img {\n    border: none; }\n  section.report div.report-section div.tableau-injection div.tableauPlaceholder .tableauViz {\n    display: none;\n    width: 654px;\n    height: 742px; }\n  section.report hr {\n    margin-top: 20px;\n    border: 0;\n    height: 0;\n    border-top: 1px solid rgba(0, 0, 0, 0.1);\n    border-bottom: 1px solid rgba(255, 255, 255, 0.3); }\n\nimg.report-img {\n  width: 50%; }\n\ntable {\n  width: 50%;\n  background: white;\n  border-radius: 3px;\n  border-collapse: collapse;\n  padding: 5px;\n  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1); }\n  table th {\n    color: #D5DDE5;\n    background: #1b1e24;\n    border-bottom: 4px solid #9ea7af;\n    border-right: 1px solid #343a45;\n    font-size: 0.9em;\n    font-weight: 100;\n    padding: 10px;\n    text-align: left;\n    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);\n    vertical-align: middle; }\n    table th:first-child {\n      border-top-left-radius: 3px; }\n    table th:last-child {\n      border-top-right-radius: 3px;\n      border-right: none; }\n  table tr {\n    border-top: 1px solid #C1C3D1;\n    border-bottom: 1px solid #C1C3D1;\n    color: #666B85;\n    font-size: 0.9em;\n    font-weight: normal;\n    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.1); }\n    table tr:first-child {\n      border-top: none; }\n    table tr:last-child {\n      border-bottom: none; }\n      table tr:last-child td:first-child {\n        border-bottom-left-radius: 3px; }\n      table tr:last-child td:last-child {\n        border-bottom-right-radius: 3px; }\n    table tr:nth-child(odd) td {\n      background: #EBEBEB; }\n  table td {\n    background: #FFFFFF;\n    padding: 10px;\n    text-align: left;\n    vertical-align: middle;\n    font-weight: 300;\n    font-size: 0.9em;\n    text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);\n    border-right: 1px solid #C1C3D1; }\n    table td:last-child {\n      border-right: 0px; }\n\ndiv#team {\n  background-color: #f9f9f9; }\n  div#team section.team ul.team-list {\n    margin: 50px auto 0;\n    padding: 50px 40px 50px 25px;\n    width: calc(80% - 65px);\n    list-style: none;\n    background-color: #fff;\n    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24); }\n    div#team section.team ul.team-list li {\n      margin: 0 auto;\n      padding: 20px 10px 25px 20px;\n      width: calc(90% - 30px);\n      cursor: pointer; }\n      div#team section.team ul.team-list li:not(:last-child) {\n        margin-bottom: 40px;\n        border-bottom: 1px solid #eee; }\n      div#team section.team ul.team-list li h3 {\n        display: inline-block;\n        margin: 0 0 10px 0;\n        color: #444;\n        font-size: 1.3em;\n        font-weight: normal; }\n      div#team section.team ul.team-list li a {\n        display: inline-block;\n        margin-left: 6px;\n        text-decoration: none;\n        color: inherit;\n        outline: none; }\n        div#team section.team ul.team-list li a i {\n          font-size: 1.5em;\n          color: #04baf4; }\n      div#team section.team ul.team-list li p {\n        margin: 0;\n        font-size: 0.9em;\n        color: #888; }\n", ""]);
+	exports.push([module.id, "/** Type **/\n/** Layout **/\n/** Layout **/\nhtml {\n  width: 100%;\n  height: 100%; }\n  html body {\n    margin: 0;\n    width: 100%;\n    height: 100%; }\n    html body div#render-target {\n      width: 100%;\n      height: 100%; }\n      html body div#render-target main {\n        width: 100%;\n        height: 100%; }\n        html body div#render-target main div.layout {\n          width: 100%;\n          height: calc(100% - 40px - 10px - 1px);\n          overflow: auto; }\n\n/** Header **/\nsection.header {\n  padding: 5px 20px;\n  width: calc(100% - 40px);\n  height: calc(40px);\n  background-color: #fff;\n  border-bottom: 1px solid #eee; }\n  section.header div.logo {\n    float: left;\n    width: calc(40px);\n    height: calc(40px); }\n    section.header div.logo img {\n      width: 100%; }\n  section.header nav {\n    float: left;\n    margin-left: 20px;\n    padding: 11px 0; }\n    section.header nav ul {\n      margin: 0;\n      padding: 0;\n      list-style: none; }\n      section.header nav ul li {\n        display: inline-block;\n        text-transform: uppercase;\n        font-family: Montserrat-Bold, Arial, sans-serif;\n        font-size: 0.9em;\n        color: #858688; }\n        section.header nav ul li a {\n          text-decoration: none;\n          color: inherit;\n          outline: none; }\n      section.header nav ul li:not(:last-child) {\n        margin-right: 30px; }\n  section.header div.help {\n    position: relative;\n    float: right;\n    padding: 6px 0;\n    cursor: pointer; }\n    section.header div.help i {\n      font-size: 1.5em;\n      color: #858688; }\n      section.header div.help i.active {\n        color: #c6c6c7; }\n    section.header div.help div.help-text {\n      position: absolute;\n      right: 6px;\n      top: 40px;\n      padding: 12px 10px 12px 15px;\n      width: 300px;\n      background-color: rgba(0, 0, 0, 0.7);\n      border: 1px solid #000;\n      z-index: 100000; }\n      section.header div.help div.help-text h4, section.header div.help div.help-text p {\n        -webkit-touch-callout: none;\n        -webkit-user-select: none;\n        -khtml-user-select: none;\n        -moz-user-select: none;\n        -ms-user-select: none;\n        user-select: none; }\n      section.header div.help div.help-text h4 {\n        margin: 0 0 6px 0;\n        font-weight: normal;\n        font-size: 0.9em;\n        color: #999; }\n      section.header div.help div.help-text p {\n        margin: 0;\n        padding: 0;\n        font-size: 0.9em;\n        color: #bbb;\n        line-height: 1.5em; }\n\n/** Banner **/\nsection.banner {\n  padding: 10px 20px;\n  width: calc(100% - 40px);\n  height: calc(48px - 20px);\n  text-align: center;\n  background-color: #F6F6F9; }\n  section.banner ul {\n    display: inline-block;\n    margin: 0;\n    padding: 0;\n    list-style: none; }\n    section.banner ul li {\n      display: inline-block;\n      text-align: center;\n      font-family: Montserrat-Bold, Arial, sans-serif;\n      font-size: 0.6em;\n      color: #333; }\n      section.banner ul li span {\n        font-size: 1.3em;\n        color: #04baf4; }\n      section.banner ul li h6 {\n        margin: 0;\n        font-size: 1.0em;\n        text-transform: lowercase; }\n    section.banner ul li:not(:last-child) {\n      margin-right: 30px; }\n\n/** Map **/\nsection.map {\n  float: left;\n  width: calc(100% - 250px);\n  height: calc(100% - 48px); }\n\ndiv.station-marker {\n  position: absolute;\n  width: 8px;\n  height: 8px;\n  font-size: 12px;\n  background-color: #fff;\n  border-radius: 50%;\n  cursor: pointer; }\n  div.station-marker.active {\n    background-color: #DA6348;\n    border-color: #DA6348;\n    z-index: 1000; }\n\ndiv.user-marker {\n  position: absolute;\n  width: 8px;\n  height: 8px;\n  font-size: 12px;\n  background-color: #EBCB40;\n  border-radius: 50%;\n  z-index: 1001; }\n\n/** Panel **/\nsection.panel {\n  float: left;\n  width: 250px;\n  height: calc(100% - 48px); }\n  section.panel div.current-time-block {\n    padding: 8px 5px;\n    height: 41px;\n    text-align: center;\n    color: #777;\n    background-color: #eee; }\n    section.panel div.current-time-block h4 {\n      margin: 0;\n      font-weight: normal;\n      font-size: 0.8em; }\n    section.panel div.current-time-block h5 {\n      margin: 5px 0 0 0;\n      font-family: Montserrat-Bold, Arial, sans-serif;\n      font-size: 1.1em;\n      word-spacing: 1px; }\n  section.panel div.active-station {\n    padding: 10px 10px 10px 20px;\n    height: 120px;\n    background-color: #fff;\n    border-bottom: 1px solid #eee; }\n    section.panel div.active-station h2 {\n      margin: 0;\n      font-size: 1.1em;\n      font-weight: normal;\n      color: #777; }\n    section.panel div.active-station span.fraction {\n      display: block;\n      margin-top: 6px;\n      font-size: 0.8em;\n      color: #aaa; }\n      section.panel div.active-station span.fraction i {\n        margin-right: 4px;\n        font-size: 1.1em; }\n    section.panel div.active-station div.fill-bar {\n      margin-top: 5px;\n      width: 100%;\n      height: 7px;\n      background-color: #eee;\n      background-color: #eee;\n      border-radius: 7px;\n      overflow: hidden; }\n      section.panel div.active-station div.fill-bar div.fill {\n        background-color: #19BCA3;\n        height: 100%; }\n    section.panel div.active-station div.no-active {\n      text-align: center; }\n      section.panel div.active-station div.no-active h2 {\n        margin: 60px 0;\n        font-size: 0.9em;\n        color: #ddd; }\n  section.panel ul.station-list {\n    margin: 0;\n    padding: 0;\n    height: calc(100% - 57px - 140px - 1px);\n    overflow-y: scroll;\n    list-style: none;\n    background-color: #fff; }\n    section.panel ul.station-list li.station-list-item {\n      padding: 10px 5px 8px 20px;\n      border-bottom: 1px solid #ddd;\n      cursor: pointer; }\n      section.panel ul.station-list li.station-list-item:hover:not(.active) {\n        padding: 10px 5px 8px 14px;\n        border-left: 6px solid #efbdb2; }\n      section.panel ul.station-list li.station-list-item.active {\n        padding: 1px 5px 8px 14px;\n        border-left: 6px solid #DA6348; }\n      section.panel ul.station-list li.station-list-item h4 {\n        margin: 0;\n        font-size: 0.9em;\n        font-weight: normal;\n        color: #999; }\n      section.panel ul.station-list li.station-list-item span.fraction {\n        display: block;\n        margin-top: 6px;\n        font-size: 0.7em;\n        color: #bbb; }\n        section.panel ul.station-list li.station-list-item span.fraction i {\n          margin-right: 3px;\n          font-size: 1.1em; }\n      section.panel ul.station-list li.station-list-item div.fill-bar {\n        margin-top: 4px;\n        width: 100%;\n        height: 6px;\n        background-color: #eee;\n        border-radius: 6px;\n        overflow: hidden; }\n        section.panel ul.station-list li.station-list-item div.fill-bar div.fill {\n          background-color: #19BCA3;\n          height: 100%; }\n\nsection.report {\n  margin: 0 auto;\n  width: 80%;\n  font-family: Helvetica, sans-serif; }\n  section.report div.report-section h2 {\n    margin-bottom: 15px;\n    font-size: 2.2em;\n    color: #383838; }\n  section.report div.report-section p {\n    font-family: Helvetica;\n    margin: 20px 0;\n    font-size: 0.9em;\n    color: #494949;\n    line-height: 1.6em; }\n  section.report div.report-section ul {\n    margin: 15px 0;\n    font-family: Helvetica;\n    font-size: 0.9em;\n    color: #494949;\n    line-height: 1.6em; }\n  section.report div.report-section a {\n    color: #ed3c83; }\n  section.report div.report-section span.asterisk {\n    display: block;\n    margin-top: 15px;\n    font-size: 0.8em;\n    color: #555;\n    font-style: italic; }\n  section.report div.report-section div.tableau-injection div.tableauPlaceholder img {\n    border: none; }\n  section.report div.report-section div.tableau-injection div.tableauPlaceholder .tableauViz {\n    display: none;\n    width: 654px;\n    height: 742px; }\n  section.report hr {\n    margin-top: 20px;\n    border: 0;\n    height: 0;\n    border-top: 1px solid rgba(0, 0, 0, 0.1);\n    border-bottom: 1px solid rgba(255, 255, 255, 0.3); }\n\nimg.report-img {\n  width: 50%; }\n\ntable {\n  width: 50%;\n  background: white;\n  border-radius: 3px;\n  border-collapse: collapse;\n  padding: 5px;\n  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1); }\n  table th {\n    color: #D5DDE5;\n    background: #1b1e24;\n    border-bottom: 4px solid #9ea7af;\n    border-right: 1px solid #343a45;\n    font-size: 0.9em;\n    font-weight: 100;\n    padding: 10px;\n    text-align: left;\n    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);\n    vertical-align: middle; }\n    table th:first-child {\n      border-top-left-radius: 3px; }\n    table th:last-child {\n      border-top-right-radius: 3px;\n      border-right: none; }\n  table tr {\n    border-top: 1px solid #C1C3D1;\n    border-bottom: 1px solid #C1C3D1;\n    color: #666B85;\n    font-size: 0.9em;\n    font-weight: normal;\n    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.1); }\n    table tr:first-child {\n      border-top: none; }\n    table tr:last-child {\n      border-bottom: none; }\n      table tr:last-child td:first-child {\n        border-bottom-left-radius: 3px; }\n      table tr:last-child td:last-child {\n        border-bottom-right-radius: 3px; }\n    table tr:nth-child(odd) td {\n      background: #EBEBEB; }\n  table td {\n    background: #FFFFFF;\n    padding: 10px;\n    text-align: left;\n    vertical-align: middle;\n    font-weight: 300;\n    font-size: 0.9em;\n    text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);\n    border-right: 1px solid #C1C3D1; }\n    table td:last-child {\n      border-right: 0px; }\n\ndiv#team {\n  background-color: #f9f9f9; }\n  div#team section.team ul.team-list {\n    margin: 50px auto 0;\n    padding: 50px 40px 50px 25px;\n    width: calc(80% - 65px);\n    list-style: none;\n    background-color: #fff;\n    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24); }\n    div#team section.team ul.team-list li {\n      margin: 0 auto;\n      padding: 20px 10px 25px 20px;\n      width: calc(90% - 30px);\n      cursor: pointer; }\n      div#team section.team ul.team-list li:not(:last-child) {\n        margin-bottom: 40px;\n        border-bottom: 1px solid #eee; }\n      div#team section.team ul.team-list li h3 {\n        display: inline-block;\n        margin: 0 0 10px 0;\n        color: #444;\n        font-size: 1.3em;\n        font-weight: normal; }\n      div#team section.team ul.team-list li a {\n        display: inline-block;\n        margin-left: 6px;\n        text-decoration: none;\n        color: inherit;\n        outline: none; }\n        div#team section.team ul.team-list li a i {\n          font-size: 1.5em;\n          color: #04baf4; }\n      div#team section.team ul.team-list li p {\n        margin: 0;\n        font-size: 0.9em;\n        color: #888; }\n", ""]);
 
 	// exports
 
