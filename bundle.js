@@ -44185,7 +44185,7 @@
 /* 393 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
 		value: true
@@ -44219,7 +44219,7 @@
 		}
 
 		_createClass(ActiveStation, [{
-			key: 'getActiveStation',
+			key: "getActiveStation",
 			value: function getActiveStation() {
 				for (var i = 0; i < this.props.predictions.length; i++) {
 					if (parseInt(this.props.predictions[i].id) === this.props.activeStationId) return this.props.predictions[i];
@@ -44227,58 +44227,35 @@
 				return false;
 			}
 		}, {
-			key: 'getFillWidth',
-			value: function getFillWidth(station) {
-				var capacity = station.capacity;
-				var demand = station.prediction;
-				var left = capacity - demand;
-				left = left > 0 ? left : 0;
-				return 100 * (left / capacity);
-			}
-		}, {
-			key: 'getFraction',
-			value: function getFraction(station) {
-				var capacity = station.capacity;
-				var demand = station.prediction;
-				var left = Math.floor(capacity - demand);
-				left = left > 0 ? left : 0;
-				return left + ' / ' + capacity;
-			}
-		}, {
-			key: 'render',
+			key: "render",
 			value: function render() {
 				var activeStation = this.getActiveStation();
-				var fillStyle = { width: this.getFillWidth(activeStation) + '%' };
 
 				return _react2.default.createElement(
-					'div',
-					{ className: 'active-station' },
+					"div",
+					{ className: "active-station" },
 					activeStation ? _react2.default.createElement(
-						'div',
+						"div",
 						null,
 						_react2.default.createElement(
-							'h2',
+							"h2",
 							null,
 							activeStation.name
 						),
 						_react2.default.createElement(
-							'span',
-							{ className: 'fraction' },
-							_react2.default.createElement('i', { className: 'fa fa-bicycle' }),
-							this.getFraction(activeStation)
-						),
-						_react2.default.createElement(
-							'div',
-							{ className: 'fill-bar' },
-							_react2.default.createElement('div', { className: 'fill', style: fillStyle })
+							"span",
+							{ className: "fraction" },
+							_react2.default.createElement("i", { className: "fa fa-bicycle" }),
+							parseInt(activeStation.prediction),
+							" bikes rented"
 						)
 					) : _react2.default.createElement(
-						'div',
-						{ className: 'no-active' },
+						"div",
+						{ className: "no-active" },
 						_react2.default.createElement(
-							'h2',
+							"h2",
 							null,
-							'Choose a station'
+							"Choose a station"
 						)
 					)
 				);
@@ -44418,8 +44395,6 @@
 			var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(StationListItem).call(this, props));
 
 			_this.handleClick = _this.handleClick.bind(_this);
-			_this.getFraction = _this.getFraction.bind(_this);
-			_this.getFillWidth = _this.getFillWidth.bind(_this);
 			return _this;
 		}
 
@@ -44429,31 +44404,12 @@
 				this.props.setActiveStationId(parseInt(this.props.station.id));
 			}
 		}, {
-			key: 'getFraction',
-			value: function getFraction() {
-				var capacity = this.props.station.capacity;
-				var demand = this.props.station.prediction;
-				var left = Math.floor(capacity - demand);
-				left = left > 0 ? left : 0;
-				return left + ' / ' + capacity;
-			}
-		}, {
-			key: 'getFillWidth',
-			value: function getFillWidth() {
-				var capacity = this.props.station.capacity;
-				var demand = this.props.station.prediction;
-				var left = capacity - demand;
-				left = left > 0 ? left : 0;
-				return 100 * (left / capacity);
-			}
-		}, {
 			key: 'render',
 			value: function render() {
 				var itemClass = (0, _classnames2.default)({
 					'station-list-item': true,
 					'active': this.props.isActive
 				});
-				var fillStyle = { width: this.getFillWidth() + '%' };
 
 				return _react2.default.createElement(
 					'li',
@@ -44469,12 +44425,8 @@
 						'span',
 						{ className: 'fraction' },
 						_react2.default.createElement('i', { className: 'fa fa-bicycle' }),
-						this.getFraction()
-					),
-					_react2.default.createElement(
-						'div',
-						{ className: 'fill-bar' },
-						_react2.default.createElement('div', { className: 'fill', style: fillStyle })
+						parseInt(this.props.station.prediction),
+						' bikes rented'
 					)
 				);
 			}
