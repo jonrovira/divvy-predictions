@@ -43,18 +43,3 @@ render((
 
 
 
-// you're going to:
-//
-//	• build out a model that spits out different predictions for each station
-// 		- make this super simple
-//	• connect to Yelp API
-//		- most popular nearby spots?
-// 	• add loader for polling
-// 	• change styling of current time block
-//	• remove icon from no active station
-// 	• add limit to number of digits in banner (repeating 9s)
-//	• add all data in banner, not just the stuff that's there
-//	• fix to the "chosen" 3-hr blocks
-// 	• add mouse-over stuff?
-
-

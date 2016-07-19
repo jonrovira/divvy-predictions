@@ -49,6 +49,7 @@ export default class Page extends React.Component {
 			$.get('http://127.0.0.1:5000/divvyPredictions/api/v1.0/forecast', function (result) {
 				if (result.forecast !== null) {
 					clearInterval(forecastRequestInterval);
+					console.log(result.forecast.currently);
 					_.setState({ forecast: result.forecast.currently });
 				} else {
 					console.log("haven't received forecast... polling.");
