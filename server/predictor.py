@@ -22,7 +22,7 @@ class Predictor:
 
 		# read, organize ride data
 		print "    reading ride data..."
-		ride_path = os.path.join(os.path.dirname(__file__), 'data/excerpt.csv')
+		ride_path = os.path.join(os.path.dirname(__file__), 'data/master.csv')
 		rides = pd.read_csv(ride_path)
 		rides.set_index(['index'], drop=True, inplace=True)
 		rides.index = pd.to_datetime(rides.index)
