@@ -43975,7 +43975,7 @@
 			key: 'getSize',
 			value: function getSize(prediction) {
 				var weight = (prediction + 1) / 10;
-				var maxSize = 14;
+				var maxSize = 4;
 				return weight * maxSize;
 			}
 		}, {
